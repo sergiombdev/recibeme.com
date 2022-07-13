@@ -1,0 +1,25 @@
+process.env.TZ = "America/La_Paz";
+const express = require("express");
+const cors = require("cors");
+
+const { requestLogs, filesLogsControl } = require("./events/log.events");
+const { version, defaultPort } = require("./env");
+const { configCors } = require("./config/cors.config");
+
+const app = express();
+
+app.set("port", process.env.PORT || defaultPort);
+app.set("json spaces", 2);
+
+app.use(filesLogsControl, requestLogs)
+app.use(cors(configCors));
+
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+app.use("/",express.static(__dirname+"/public"));
+app.use("/api", require(`./api/${version}`));
+
+app.listen(app.get("port"), () => {
+	console.log(`Server listening on port ${app.get("port")}`);
+});
