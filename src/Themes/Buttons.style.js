@@ -2,25 +2,31 @@ import styled from 'styled-components';
 
 export const ButtonAnimated = styled.button`
 	position: relative;
-	display: inline-block;
+	display: grid;
+	grid-template-columns: 1fr 20px;
+	justify-content: center;
+	align-items: center;
+
 	width: 8em;
 	height: 2.6em;
 	line-height: 2em;
 	overflow: hidden;
-	border: 2px solid var(--secundaryColor);
+	border: 2px solid var(--primaryColor);
 	transition: color .5s;
 	z-index: 1;
 	font-size: 14px;
 	border-radius: 30px;
 	font-weight: bold;
-	color: var(--secundaryColor);
+	color: var(--primaryColor);
 	cursor: pointer;
+	background: var(--backgroundColor);
+	box-shadow: var(--shadowGlobal);
 
 	:before{
 		content: "";
 		position: absolute;
 		z-index: -1;
-		background: var(--secundaryColor);
+		background: var(--primaryColor);
 		height: 170px;
 		width: 220px;
 		border-radius: 50%;
@@ -42,7 +48,7 @@ export const ButtonAnimated = styled.button`
 	}
 
 	:active:before{
-		background: #3a0ca3;
+		background: var(--primaryColor);
 		transition: background 0s;
 	}
 

@@ -7,9 +7,10 @@ export const light ={
 
 	textColorPrimary: "#636e72", //gray
 	textColorSecundary: "#ffffff", //white
+	textColorGray: "#b2bec3",
 
 	highlighter: "#f6ecff",
 	footer: "#2d3436",
 
-	shadowGlobal: "0 0 3px rgba(0,0,0,.7)" //shadow black
+	shadowGlobal: "0px 3px 14.6px 1.4px rgba(0, 0, 0, 0.07)" //shadow black
 };

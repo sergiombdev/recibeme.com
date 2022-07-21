@@ -73,4 +73,23 @@ export const GlobalStyle = createGlobalStyle`
 	  margin: 0;
 	  font-family: 'Roboto';
 	}
+
+	button{
+		outline: none;
+	    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	    cursor: pointer;
+	}
+
+	::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+	  color: #bdbdbd;
+	  opacity: 1; /* Firefox */
+	}
+
+	:-ms-input-placeholder { /* Internet Explorer 10-11 */
+	  color: #bdbdbd;
+	}
+
+	::-ms-input-placeholder { /* Microsoft Edge */
+	  color: #bdbdbd;
+	}
 `;
