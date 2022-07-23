@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const router = Router();
 
-router.get("/", require("./../models/message.model").hello);
+router.post("/store", require("./../models/auth.model").authStore);
 
 module.exports = router;

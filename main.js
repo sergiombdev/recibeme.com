@@ -1,6 +1,7 @@
 process.env.TZ = "America/La_Paz";
 const express = require("express");
 const cors = require("cors");
+const bodyParser = require("body-parser");
 
 const { requestLogs, filesLogsControl } = require("./events/log.events");
 const { version, defaultPort } = require("./env");
@@ -16,6 +17,9 @@ app.use(cors(configCors));
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.use("/",express.static(__dirname+"/public"));
 app.use("/api", require(`./api/${version}`));
