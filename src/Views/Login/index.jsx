@@ -1,4 +1,4 @@
-import { ContainerPage, Logo, LoginContainer, Copyright, ImageServer } from "./Styles";
+import {ContainerPage, Logo, LoginContainer, Copyright, ImageServer } from "./Styles";
 import recibemeLogo from './../../sources/images/logo.svg';
 
 import { LoginForm } from './Components/LoginForm';

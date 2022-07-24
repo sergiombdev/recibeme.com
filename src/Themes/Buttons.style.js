@@ -7,49 +7,30 @@ export const ButtonAnimated = styled.button`
 	justify-content: center;
 	align-items: center;
 
-	width: 8em;
-	height: 2.6em;
-	line-height: 2em;
-	overflow: hidden;
-	border: 2px solid var(--primaryColor);
-	transition: color .5s;
-	z-index: 1;
-	font-size: 14px;
-	border-radius: 30px;
-	font-weight: bold;
-	color: var(--primaryColor);
+	margin-top: 2rem;
+	padding: 1em 2em;
+	font-size: 12px;
+	text-transform: uppercase;
+	letter-spacing: 2.5px;
+	font-weight: 500;
+	color: var(--textColorPrimary);
+	background-color: var(--backgroundColor);
+	border: none;
+	border-radius: 45px;
+	box-shadow:  var(--shadowGlobal);
+	transition: all 0.3s ease 0s;
 	cursor: pointer;
-	background: var(--backgroundColor);
-	box-shadow: var(--shadowGlobal);
+	outline: none;
 
-	:before{
-		content: "";
-		position: absolute;
-		z-index: -1;
-		background: var(--primaryColor);
-		height: 170px;
-		width: 220px;
-		border-radius: 50%;
-	}
-
-	:before{
-		top: 100%;
-		left: 100%;
-		transition: all .7s;
-	}
-	:hover {
+	&:hover {
+		background-color: var(--primaryColor);
+		box-shadow: var(--shadowGlobal);
 		color: var(--textColorSecundary);
 	}
 
-
-	:hover:before{
-		top: -30px;
-		left: -30px;
+	&:disabled,
+	&[disabled]{
+	  background-color: var(--highlighter);
+	  color: var(--textColorGray);
 	}
-
-	:active:before{
-		background: var(--primaryColor);
-		transition: background 0s;
-	}
-
 `;

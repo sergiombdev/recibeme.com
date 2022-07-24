@@ -1,8 +1,8 @@
 import { ContainerInput, Input, Label } from './styles';
 
-export const InputRecibeme = ( { nameLabel = "", children ,...props} )=>{
+export const InputRecibeme = ( { isEmpty=false, nameLabel = "", children ,...props} )=>{
 	return(
-		<ContainerInput>
+		<ContainerInput isEmpty={isEmpty} >
 			<Input {...props}/>
 			<Label>{ nameLabel }</Label>
 			{children}

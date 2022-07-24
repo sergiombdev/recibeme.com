@@ -22,9 +22,6 @@ import robotoBoldTtf from './../sources/fonts/roboto-v30-latin/roboto-v30-latin-
 import robotoBoldEot from './../sources/fonts/roboto-v30-latin/roboto-v30-latin-700.eot';
 import robotoBoldSvg from './../sources/fonts/roboto-v30-latin/roboto-v30-latin-700.svg';
 
-
-
-
 export const GlobalStyle = createGlobalStyle`
 	
 	:root{
@@ -70,8 +67,8 @@ export const GlobalStyle = createGlobalStyle`
 	}
 
 	body {
-	  margin: 0;
-	  font-family: 'Roboto';
+		margin: 0;
+		font-family: 'Roboto';
 	}
 
 	button{

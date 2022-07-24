@@ -11,6 +11,10 @@ export const ContainerInput = styled.div`
 	justify-content: center;
 	align-items: center;
 
+	${
+		({isEmpty = false}) => isEmpty ? `animation: .5s shakeX;` : ''
+	}
+
 	span{
 		color: var(--primaryColor);
 	}

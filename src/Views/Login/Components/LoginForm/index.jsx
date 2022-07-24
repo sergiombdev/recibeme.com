@@ -1,35 +1,87 @@
-import { InputRecibeme } from './../../../../Widgets/InputRecibeme';
-import { Form } from './Styles';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { FontAwesomeIcon } from  '@fortawesome/react-fontawesome';
-import { ButtonAnimated } from './../../../../Themes/Buttons.style';
+import { InputRecibeme } from "./../../../../Widgets/InputRecibeme";
+import { Form } from "./Styles";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ButtonAnimated } from "./../../../../Themes/Buttons.style";
+
+import { isEmpty } from "./../../../../Events/validate.events";
+import { isStore } from "./../../../../Events/requests.events";
 
 export const LoginForm = () => {
+	const [existsError, setExistsError] = useState(false);
+	const [submit, setSubmit] = useState(false);
+	const navigate = useNavigate();
+
+	const animateError = (validValues) => {
+		setExistsError(!validValues);
+		setTimeout(() => setExistsError(false), 550);
+	};
+
+	const submitEvent = async (e) => {
+		e.preventDefault();
+		const data = Object.fromEntries(new FormData(e.target).entries());
+		let validValues = Object.entries(data).every((val) => isEmpty(val[1]));
+
+		animateError(validValues);
+
+		if (validValues) {
+			setSubmit(true);
+			try {
+				const result = await isStore(data);
+				setSubmit(false);
+				navigate(
+					`/admin/${JSON.parse(localStorage.recibemeStoreInfo || "{}").name}`,
+					{
+						replace: true,
+					},
+				);
+			} catch (e) {
+				setSubmit(false);
+				animateError(false);
+			}
+		}
+	};
+
 	return (
-		<Form onSubmit = {(e)=>e.preventDefault()}>
-			
+		<Form autoComplete="off" existsError={existsError} onSubmit={submitEvent}>
 			<h4>rest api</h4>
 
-			<InputRecibeme nameLabel="Usuario" required={true} type="text" autoComplete="new-password">
+			<InputRecibeme
+				name="username"
+				nameLabel="Usuario"
+				required={true}
+				type="text"
+				autoComplete="off"
+			>
 				<span>
-					<FontAwesomeIcon icon={["fa","user"]}/>
+					<FontAwesomeIcon icon={["fa", "user"]} />
 				</span>
 			</InputRecibeme>
 
-			<InputRecibeme nameLabel="Contraseña" required={true} type="password" autoComplete="new-password">
+			<InputRecibeme
+				name="password"
+				nameLabel="Contraseña"
+				required={true}
+				type="password"
+				autoComplete="new-password"
+			>
 				<span>
-					<FontAwesomeIcon icon={["fa","key"]}/>
+					<FontAwesomeIcon icon={["fa", "key"]} />
 				</span>
 			</InputRecibeme>
 
-			<ButtonAnimated>
-				Entrar
+			<ButtonAnimated disabled={submit}>
+				{submit ? "Verificando" : "Entrar"}
 				<span>
-					<FontAwesomeIcon icon={ ["fa","right-to-bracket"] }/>
+					<FontAwesomeIcon
+						icon={submit ? ["fa", "spinner"] : ["fa", "right-to-bracket"]}
+						spin={submit}
+					/>
 				</span>
 			</ButtonAnimated>
-
 		</Form>
 	);
-}
+};

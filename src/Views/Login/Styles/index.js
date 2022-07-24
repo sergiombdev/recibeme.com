@@ -1,27 +1,35 @@
 import styled from 'styled-components';
 import serverImage from './../../../sources/images/server.svg';
+import simpleShiny from './../../../sources/images/simpleShiny.svg';
 
 export const ContainerPage = styled.div`
-	min-height: 100vh;
+	height: 100vh;
+	grid-area: page;
 	display: grid;
 	grid-template:  "logo" min-content
 				 	"login" 1fr
 				 	"copyright" min-content;
 
-	max-width: 1600px;
-	margin: 0 auto;
+	box-shadow: var(--shadowGlobal);
+
+	overflow-x: hidden;
 `;
 
 export const Logo = styled.div`
 	grid-area: logo;
+	background: var(--backgroundColor);
 	img{
-		max-height: 70px;
+		max-height: 40px;
 	}
 `;
 
 export const LoginContainer = styled.div`
 	grid-area: login; 
 	display: grid;
+	background: url(${ simpleShiny });
+	background-size: cover;
+	background-position: center;
+
 	grid-template-columns: repeat(2,.5fr);
 	grid-template-areas: "image loginContainer";
 
@@ -31,6 +39,7 @@ export const LoginContainer = styled.div`
 	@media screen and (max-width: 650px){
 		grid-template-columns: 1fr;
 		grid-template-areas: "loginContainer";
+		padding: 1rem;
 	}
 
 `;
@@ -39,7 +48,8 @@ export const Copyright = styled.footer`
 	grid-area: copyright;
 	text-align: center;
 	font-size: 13px;
-	color: var(--textColorGray);
+	background: var(--primaryColor);
+	color: var(--textColorSecundary);
 `;
 
 export const ImageServer = styled.div`
@@ -48,9 +58,13 @@ export const ImageServer = styled.div`
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: contain;
-	width: 80%;
-	height: 80%;
+	width: 70%;
+	height: 70%;
 	min-width: 300px;
+
+
+
+	animation: .5s bounceIn;
 
 	@media screen and (max-width: 650px){
 		display: none;
