@@ -22,7 +22,7 @@ export const BarMenu = styled.div`
 	grid-template: "logo" min-content;
 
 	img{
-		max-height: 70px;
+		max-height: 50px;
 	}
 `;
 

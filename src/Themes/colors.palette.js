@@ -2,7 +2,8 @@ export const light ={
 
 	backgroundColor : "#ffffff", //white
 	backgroundGradient: "linear-gradient(to left, #8c51c1, #aa49b2, #c142a2, #d13f90, #dc417d)",
-	
+	backgroundColorGray: "#f1f2f6",
+
 	primaryColor: "#8c51c1", //purple
 	secundaryColor: "#dc417d", //pink
 

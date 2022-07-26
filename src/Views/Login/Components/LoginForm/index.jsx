@@ -30,12 +30,12 @@ export const LoginForm = () => {
 		if (validValues) {
 			setSubmit(true);
 			try {
-				const result = await isStore(data);
+				await isStore(data);
 				setSubmit(false);
 				navigate(
-					`/admin/${JSON.parse(localStorage.recibemeStoreInfo || "{}").name}`,
+					`/admin/${localStorage.recibemeStoreInfo}`,
 					{
-						replace: true,
+						replace: false,
 					},
 				);
 			} catch (e) {

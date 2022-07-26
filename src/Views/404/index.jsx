@@ -38,12 +38,18 @@ const Error404 = () => {
 
 			<Actions>
 				<ButtonAnimated onClick={goBack}> 
-					<FontAwesomeIcon icon={["fa","chevron-left"]}/> &nbsp;
 					Atrás 
+					<span>
+						<FontAwesomeIcon icon={["fa","chevron-left"]}/>
+					</span>
+
 				</ButtonAnimated>
 				<ButtonAnimated onClick={goHome}> 
-					<FontAwesomeIcon icon={["fa","home"]}/> &nbsp;
 					Inicio
+					<span>
+						<FontAwesomeIcon icon={["fa","home"]}/>
+					</span>
+
 				</ButtonAnimated>
 
 			</Actions>
