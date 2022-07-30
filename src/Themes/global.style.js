@@ -66,6 +66,10 @@ export const GlobalStyle = createGlobalStyle`
 		font-weight: 700;
 	}
 
+	html{
+		scroll-behavior: smooth;
+	}
+
 	body {
 		margin: 0;
 		font-family: 'Roboto';

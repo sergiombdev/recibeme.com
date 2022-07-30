@@ -8,7 +8,8 @@ import {
     faKey,
     faRightToBracket,
     faSpinner,
-    faDoorClosed
+    faDoorClosed,
+    faAngleUp
 } from "@fortawesome/free-solid-svg-icons";
 // import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 // import { faCirclePlay} from '@fortawesome/free-regular-svg-icons';
@@ -22,6 +23,7 @@ export const icons = () => {
         faCircleInfo,
         faUser,
         faKey,
-        faDoorClosed
+        faDoorClosed,
+        faAngleUp
     );
 };

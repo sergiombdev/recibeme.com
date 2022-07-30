@@ -25,11 +25,43 @@ export const Info = styled.div`
 	.cm-editor{
 	    border-radius: 10px;
 	    overflow: hidden;
-	}
+	};
+	li{
+		color: var(--secundaryColor);
+		p{
+			margin: 0;
+		};
+		a{
+			text-decoration: none;
+			outline: none;
+		}
+	};
 `;
 
 export const TokenInfo = styled.p`
 	background: var(--highlighter);
     padding: 10px;
     border-radius: 10px;
+`;
+
+export const SectionApi = styled.section`
+	scroll-margin-top: 60px;
+`;
+
+export const FloatButton = styled.button`
+	position: fixed;
+	width: 50px;
+	height: 50px;
+	background: var(--secundaryColor);
+	border: 0;
+	box-shadow: var(--shadowGlobal);
+	border-radius: 50%;
+	z-index: 1;
+	bottom: .5rem;
+	right: .5rem;
+	animation: .5s bounceInUp;
+	color: var(--textColorSecundary);
+	${
+		({show})=> !show?"display:none;":null
+	}
 `;
