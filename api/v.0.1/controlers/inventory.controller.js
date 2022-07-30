@@ -94,14 +94,18 @@ module.exports.deliveryTotal = ({ id_store = 0 }) => {
 };
 
 module.exports.stockInterval = ({
-		id_store = 0,
-		startDate = new Date(new Date().getFullYear()+"/"+new Date().getMonth()+"/1").toLocaleDateString(),
-		endDate = new Date().toLocaleDateString()
-	}) => {
-
+	id_store = 0,
+	startDate = new Date(
+		new Date().getFullYear() + "/" + new Date().getMonth() + "/1",
+	).toLocaleDateString(),
+	endDate = new Date().toLocaleDateString(),
+}) => {
 	const connectionStart = new RecibemeDB();
 	const connect = connectionStart.getConnection();
-	const query = `call stockInventoryInterval("${id_store}","${startDate.split("/").reverse().join("-")}","${endDate.split("/").reverse().join("-")}");`;
+	const query = `call stockInventoryInterval("${id_store}","${startDate
+		.split("/")
+		.reverse()
+		.join("-")}","${endDate.split("/").reverse().join("-")}");`;
 
 	return new Promise((resolve, reject) => {
 		connect.query(query, (error, result, fields) => {
@@ -120,16 +124,19 @@ module.exports.stockInterval = ({
 	});
 };
 
-
 module.exports.deliveryInterval = ({
-		id_store = 0,
-		startDate = new Date(new Date().getFullYear()+"/"+new Date().getMonth()+"/1").toLocaleDateString(),
-		endDate = new Date().toLocaleDateString()
-	}) => {
-
+	id_store = 0,
+	startDate = new Date(
+		new Date().getFullYear() + "/" + new Date().getMonth() + "/1",
+	).toLocaleDateString(),
+	endDate = new Date().toLocaleDateString(),
+}) => {
 	const connectionStart = new RecibemeDB();
 	const connect = connectionStart.getConnection();
-	const query = `call DetailsDeliveryInterval("${id_store}","${startDate.split("/").reverse().join("-")}","${endDate.split("/").reverse().join("-")}");`;
+	const query = `call DetailsDeliveryInterval("${id_store}","${startDate
+		.split("/")
+		.reverse()
+		.join("-")}","${endDate.split("/").reverse().join("-")}");`;
 
 	return new Promise((resolve, reject) => {
 		connect.query(query, (error, result, fields) => {
@@ -153,3 +160,34 @@ module.exports.deliveryInterval = ({
 	});
 };
 
+module.exports.newRequest = ({ preferedDeliveryTime, ...data }) => {
+	const formatPreferedDeliveryTime = preferedDeliveryTime
+		.split("/")
+		.reverse()
+		.join("-");
+
+	const newData = { preferedDeliveryTime: formatPreferedDeliveryTime, ...data };
+
+	const connectionStart = new RecibemeDB();
+	const connect = connectionStart.getConnection();
+
+	const query = `call loadRequest('${JSON.stringify(newData)}');`;
+
+	return new Promise((resolve, reject) => {
+		connect.query(query, (error, result, fields) => {
+			connectionStart.connectionClose();
+			console.log(error);
+
+			let data = result ? result : [];
+
+			if (error)
+				reject({
+					status: 500,
+					message: "Internal server error.",
+				});
+
+
+			resolve({ requestCode: newData.requestCode });
+		});
+	});
+};

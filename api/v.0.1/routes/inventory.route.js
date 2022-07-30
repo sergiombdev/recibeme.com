@@ -9,5 +9,7 @@ router.get("/deliverys", require("./../models/inventory.model").allDeliveryDetai
 router.get("/deliverys/total", require("./../models/inventory.model").allDeliveryTotal);
 router.post("/deliverys/filter", require("./../models/inventory.model").allDeliveryInterval);
 
+router.post("/request/send", require("./../models/inventory.model").sendRequest);
+
 
 module.exports = router;
