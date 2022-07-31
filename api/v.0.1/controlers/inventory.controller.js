@@ -171,23 +171,45 @@ module.exports.newRequest = ({ preferedDeliveryTime, ...data }) => {
 	const connectionStart = new RecibemeDB();
 	const connect = connectionStart.getConnection();
 
-	const query = `call loadRequest('${JSON.stringify(newData)}');`;
+	const query = `call loadRequest('${JSON.stringify(newData)}',@errorCode, @errorItem);`;
 
 	return new Promise((resolve, reject) => {
 		connect.query(query, (error, result, fields) => {
-			connectionStart.connectionClose();
-			console.log(error);
 
-			let data = result ? result : [];
-
-			if (error)
+			if (error){
+				connectionStart.connectionClose();
 				reject({
 					status: 500,
 					message: "Internal server error.",
 				});
+			}
 
+			connect.query("select @errorCode, @errorItem;", (error, result, fields) => {
+				connectionStart.connectionClose();
 
-			resolve({ requestCode: newData.requestCode });
+				// console.log(result);
+				if (error){
+					reject({
+						status: 500,
+						message: "Internal server error.",
+					});
+				}
+
+				let errorCode = result[0]["@errorCode"].replaceAll("codes_","").split("_");
+				let errorItem = result[0]["@errorItem"].replaceAll("items_","").split("_");
+
+			
+				let stockItems = errorItem.map(x=>({
+					nameItem: x,
+					error: "You don't have enough items to cover that sale."
+				}));
+
+				resolve({ 
+					requestCode: newData.requestCode,
+					statusRequest: errorItem[0] !== "items" ? stockItems : []
+				});
+
+			});
 		});
 	});
 };

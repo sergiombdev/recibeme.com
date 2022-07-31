@@ -93,7 +93,7 @@ module.exports.allDeliveryInterval = async (req, res) => {
 };
 
 module.exports.sendRequest = async(req, res) => {
-	const { storeName } = req.infoStore;
+	const { id_store: storeID } = req.infoStore;
 	const {
 		lng = "",
 		lat = "",
@@ -221,6 +221,32 @@ module.exports.sendRequest = async(req, res) => {
 		...val,
 	}));
 
+	const validateFormatItems = items.every(({ name, quantity}) =>
+		isEmpty(name) && !isNaN(parseInt(quantity)) ? true : false,
+	);
+
+	if(!validateFormatItems)	
+		return res
+			.status(403)
+			.json({
+				status: 403,
+				message:
+					"Quantity must be an integer greater than 0",
+			});
+
+	const validateQuantityItems = items.every(({ name, quantity}) =>	
+		quantity > 0 ? true : false,
+	);
+
+	if(!validateQuantityItems)	
+		return res
+			.status(403)
+			.json({
+				status: 403,
+				message:
+					"Quantity must be an integer greater than 0",
+			});
+
 	const defaultValues = {
 		lng,
 		lat,
@@ -235,10 +261,9 @@ module.exports.sendRequest = async(req, res) => {
 		...defaultValues,
 		...automatizedData,
 		prime,
+		storeID,
 		items: formatItems,
 	};
-
-	///lleno la base de datos
 
 	try {
 
