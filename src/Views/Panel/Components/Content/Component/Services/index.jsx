@@ -18,7 +18,7 @@ export const Services = ({ url, method, headers, example, response, description,
 		}
 
 		<p dangerouslySetInnerHTML={{__html: body}}></p>
-		<p>Ejemplo:</p>
+		<p>Implementación:</p>
 		<CodeMirror
 			value={example}
 			height="auto"

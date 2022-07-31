@@ -159,6 +159,68 @@ export const documentation = [
         "weight": null,
         "addressWarehouse": "calle2"
     }
-]`}
+]`},
+    {
+        url: "api/inventory/request/send",
+        method: "POST",
+        headers: "api_key",
+        example: `curl --location --request GET 'https://${window.location.host}/api/inventory/request/send' 
+--header 'api_key: <your api_key> 
+--data-raw '{   
+    "firstName": "name your client",
+    "lastName" : "lastname your client",
+    "address":"direccion",
+    "city":"Santa Cruz",
+    "state":"Santa Cruz",
+    "country":"Bolivia",
+    "paymentStatus":"paid",
+    "clientCellphone":"+59171164656",
+    "items":[
+        {
+            "name":"chaleco",
+            "quantity":2, 
+            "description":"" 
+        },
+        {
+            "name":"pantalon",
+            "quantity":2,  
+            "description":""
+        },
+        {
+            "name":"bufanda",
+            "quantity":3,
+            "description":""
+        }
+    ] 
+}'
+`,
+        body: `
+           <b> firstName </b> (requerido) - Formato texto <b>" minimo 3 caracteres "</b> </br>
+           <b> middleName </b> (opcional) - Formato texto <b>" minimo 3 caracteres "</b> </br>
+           <b> lastName </b> (requerido) - Formato texto <b>" minimo 3 caracteres "</b> </br>
+           <b> address </b> (requerido) - Formato texto <b>" minimo 3 caracteres "</b> </br>
+           <b> city </b> (requerido) - Formato texto <b>" minimo 3 caracteres "</b> </br>
+           <b> state </b> (requerido) - Formato texto <b>" minimo 3 caracteres "</b> </br>
+           <b> country </b> (requerido) - Formato texto <b>" minimo 3 caracteres "</b> </br>
+           <b> lng </b> (opcional) - Formato texto <b>" minimo 3 caracteres "</b> </br>
+           <b> lat </b> (opcional) - Formato texto <b>" minimo 3 caracteres "</b> </br>
+           <b> preferedDeliveryTime </b> (opcional) - Formato fecha <b>dd/mm/YYYY</b> </br>
+           <b> shippmentType </b> (opcional) - Formato texto <b>"por defecto regular"</b> </br>
+           <b> paymentStatus </b> (requerido) - Formato texto <b>" minimo 3 caracteres "</b> </br>
+           <b> clientCellphone </b> (requerido) - Formato texto <b>"+59112345678"</b> </br>
+           <b> clientEmail </b> (requerido) - Formato texto <b>"example@example.com"</b> </br>
+            
+            Para los <b>Items</b> (requerido) - Formato array <b>[ Obj, Obj2, Obj3... ]</b> </br>
+            
+            Valores obligatorios y opcionales dentro de cada objeto dentro de <b>Items</b>:</br>
+            <b>name</b>  (requerido) - Formato texto <b>"nombre del producto"</b> </br>
+            <b>quantity</b> (requerido) - Formato numero entero <b> quantity > 0 </b> </br>
+            <b>description</b> (opcional) - Formato texto <b>" "</b> </br>
+        `,
+        description: `Solicita un envío a los almacenes de recíbeme.com de tus productos.`,
+        response: `{
+    "requestCode": "71d2928a-a44f-4139-aadd-6f6eb7ae200b",//codigo de seguimiento de tu solicitud
+    "statusRequest": []
+}`}
 
 ];
