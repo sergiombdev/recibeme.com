@@ -3,8 +3,8 @@ import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 
 // styles
+import "animate.css";
 import { GlobalStyle } from "./Themes/global.style";
-
 //icons
 import { icons } from "./Themes/icons";
 

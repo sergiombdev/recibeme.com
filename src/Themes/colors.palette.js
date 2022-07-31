@@ -12,5 +12,7 @@ export const light ={
 	highlighter: "#f6ecff",
 	footer: "#2d3436",
 
+	backgroundColorGray: "#ecf0f1",
+
 	shadowGlobal: "0px 3px 14.6px 1.4px rgba(0, 0, 0, 0.07)" //shadow black
 };
