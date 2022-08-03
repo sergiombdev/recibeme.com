@@ -29,9 +29,47 @@ export const Nav = styled.div`
 export const Content = styled.div`
 	grid-area: content;
 	display: grid;
+
 	grid-template: "header" 70px
 				   "activity" 1fr;
 `;
+
+export const Header = styled.div`
+	grid-area: header;
+	display: grid;
+	grid-template-columns: 1fr min-content;
+	grid-template-areas: "tittle user";
+	border-bottom: 1px solid var(--textColorPrimary);
+
+`;
+
+export const Tittle = styled.div`
+	grid-area: tittle;
+	margin-top: auto;
+	margin-right: auto;
+	margin-bottom: auto;
+	margin-left: 30px;
+	color: var(--textColorPrimary);
+	
+
+`;
+
+export const User = styled.div`
+	grid-area: user;
+	display: grid;
+	grid-template-columns: min-content min-content;
+	grid-gap: 0.5em;
+	padding: 1rem 1rem 1rem 1rem;
+	align-items: center;
+
+
+`;
+
+export const Activity = styled.div`
+	grid-area: activity;
+
+`;
+
 
 export const ContainerMenu = styled.div`
 	position: relative;
@@ -141,6 +179,40 @@ export const ContainerInfoButton = styled.div`
 
 `;
 
+export const ContainerInfoOption = styled.div`
+	position: absolute;
+	min-width: 100px;
+	width: min-content;
+	height: min-content;
+	left: 60px;
+	bottom: 15px;
+	background: var(--backgroundColorGray);
+	color: var(--backgroundColorGray);
+	border: 1px solid var(--backgroundColorGray);
+	border-radius: 20px 20px 20px 0px;
+	padding: 5px;
+	display: none;
+	animation: .5s bounceIn;
+
+`;
+
+export const ContainerInfoTop = styled.div`
+	position: absolute;
+	min-width: 100px;
+	width: min-content;
+	height: min-content;
+	right: -10px;
+	top: 55px;
+	background: var(--backgroundColorGray);
+	color: var(--backgroundColorGray);
+	border: 1px solid var(--backgroundColorGray);
+	border-radius: 20px 20px 20px 0px;
+	padding: 5px;
+	display: none;
+	animation: .5s bounceIn;
+
+`;
+
 export const ButtonAdmin = styled.button`
 	position: relative;
 	width: 40px;
@@ -155,6 +227,46 @@ export const ButtonAdmin = styled.button`
 		({isShadow})=> isShadow? "box-shadow: var(--shadowGlobal);":""
 	}
 	:hover ${ContainerInfoButton}{
+		display: block;
+	}
+`;
+
+export const ButtonOption = styled.button`
+	position: relative;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	background: transparent;
+	color: var(--textColorPrimary);
+	margin: 0 auto;
+	border: 0;
+	font-size: 17px;
+	${
+		({isShadow})=> isShadow? "box-shadow: var(--shadowGlobal);":""
+	}
+	
+	}
+	:focus ${ContainerInfoOption}{
+		display: block;
+	}
+`;
+
+export const ButtonTop = styled.button`
+	position: relative;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	background: transparent;
+	color: var(--textColorPrimary);
+	margin: 0 auto;
+	border: 0;
+	font-size: 17px;
+	${
+		({isShadow})=> isShadow? "box-shadow: var(--shadowGlobal);":""
+	}
+	
+	}
+	:focus ${ContainerInfoTop}{
 		display: block;
 	}
 `;

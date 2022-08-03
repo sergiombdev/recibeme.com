@@ -9,6 +9,7 @@ import {
     faRightToBracket,
     faBoxesStacked,
     faGear,
+    faBell,
     faCirclePlus,
     faListCheck
 } from "@fortawesome/free-solid-svg-icons";
@@ -26,6 +27,7 @@ export const icons = () => {
         faChevronLeft,
         faCircleInfo,
         faUser,
+        faBell,
         faKey,
     );
 };
