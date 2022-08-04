@@ -1,4 +1,6 @@
 process.env.TZ = "America/La_Paz";
+process.env.ENVIRONMENT = "prod";
+
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
