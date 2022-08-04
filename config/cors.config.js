@@ -2,7 +2,7 @@ module.exports.configCors = {
 	origin: [
 		{
 		    origin:'*', 
-		    credentials:true,            //access-control-allow-credentials:true
+		    credentials:true,          //access-control-allow-credentials:true
 		    optionSuccessStatus:200
 		}
 	],
