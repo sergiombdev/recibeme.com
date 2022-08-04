@@ -5,4 +5,16 @@ dotenv.config({
 	path: path.resolve(__dirname, './../env/' + '.env.' + process.env.ENVIRONMENT + ".local")
 });
 
-module.exports = process.env;
+// module.exports = process.env;
+module.exports = {
+	version: "v.0.1",
+	defaultPort: 8080,
+	secret: "fb19ccd9-6fd9-4982-ba89-8828a3a983a0",
+
+	host: "clinicadesaludonline.com",
+	user: "eulvaran_sergio",
+	password: "Yc!n8IyaLRgq",
+	database: "eulvaran_RECIBEME",
+	port_db: 3306,
+	connectionLimit: 1,
+}
