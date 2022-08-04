@@ -22,7 +22,7 @@ module.exports.requestLogs =
 		? morgan(formatLog)
 		: morgan(formatLog, {
 				stream: fs.createWriteStream(
-					__dirname + `./../logs/request/${nameLog()}.log`,
+					__dirname + `../logs/request/${nameLog()}.log`,
 					{
 						flags: "a",
 					},
