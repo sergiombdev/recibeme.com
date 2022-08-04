@@ -28,7 +28,10 @@ app.use(express.static(__dirname+"/public"));
 app.use("/admin",express.static(__dirname+"/public"));
 app.use("/admin/:store",express.static(__dirname+"/public"));
 
-app.use("/api", require(`./api/${version}`));
+
+
+
+app.use("/api", require(`${__dirname}/api/${version}`));
 
 app.get('*', (req, res)=>{
   res.status(404).json({status: 404, message: "Address not found."});
