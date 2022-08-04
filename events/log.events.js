@@ -2,6 +2,7 @@ const fs = require("fs");
 const morgan = require("morgan");
 const winston = require("winston");
 require("winston-daily-rotate-file");
+const path = require('path');
 
 const formatLog =
 	":method | :status | :url | :response-time ms | :remote-addr | :remote-user | :dateServer";
@@ -22,7 +23,7 @@ module.exports.requestLogs =
 		? morgan(formatLog)
 		: morgan(formatLog, {
 				stream: fs.createWriteStream(
-					__dirname + `../logs/request/${nameLog()}.log`,
+					path.resolve(__dirname,"..","logs","request",`${nameLog()}.log`),
 					{
 						flags: "a",
 					},

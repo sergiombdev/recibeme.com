@@ -1,5 +1,7 @@
-const { RecibemeDB } = require("./../../../dataBases/mysql.connect");
-const { generateToken, decodeToken } = require("./../../../events/token.events");
+const path = require('path');
+
+const { RecibemeDB } = require( path.resolve(__dirname,"..","..","..","dataBases","mysql.connect"));
+const { generateToken } = require( path.resolve(__dirname,"..","..","..","events","token.events"));
 
 module.exports.login = ({ username = "", password = "" }) => {
 	const connectionStart = new RecibemeDB();

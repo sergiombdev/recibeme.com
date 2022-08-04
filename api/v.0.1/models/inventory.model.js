@@ -1,3 +1,5 @@
+const path = require('path');
+
 const {
 	stock,
 	totalStock,
@@ -6,11 +8,11 @@ const {
 	stockInterval,
 	deliveryInterval,
 	newRequest
-} = require("./../controlers/inventory.controller");
+} = require( path.resolve(__dirname,"..","controlers","inventory.controller"));
 
 const { v4: uuid } = require('uuid');
 
-const { isDate, isCellphone, isEmail,isEmpty } = require("./../../../events/validate.format");
+const { isDate, isCellphone, isEmail,isEmpty } = require(path.resolve(__dirname,"..","..","..","events","validate.format"));
 
 module.exports.stockStore = async (req, res) => {
 	try {

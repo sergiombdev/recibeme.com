@@ -1,4 +1,5 @@
-const { RecibemeDB } = require("./../../../dataBases/mysql.connect");
+const path = require('path');
+const { RecibemeDB } = require( path.resolve(__dirname,"..","..","..","dataBases","mysql.connect"));
 
 module.exports.stock = ({ id_store = 0 }) => {
 	const connectionStart = new RecibemeDB();

@@ -1,4 +1,5 @@
-const { isToken } = require('./../controlers/token.controller');
+const path = require('path');
+const { isToken } = require(path.resolve(__dirname,"..","controlers","token.controller"));
 
 module.exports.tokenAccess = async(req, res, next) => {
 	if(!req.headers.api_key) return res.status(403).json({

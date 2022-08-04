@@ -1,5 +1,7 @@
 const jwt = require("jwt-simple");
-const { secret } = require("./../env");
+const path = require('path');
+
+const { secret } = require( path.resolve(__dirname,"..","env"));
 
 module.exports.generateToken = (data) => jwt.encode(data, secret);
 
