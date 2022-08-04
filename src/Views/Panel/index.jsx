@@ -1,3 +1,4 @@
+import { useParams, useNavigate } from 'react-router-dom';
 import {
 	ContainerPage,
 	ContainerMenu,
@@ -9,39 +10,56 @@ import {
 	Nav,
 	Menu,
 	Logo,
-	Line,
 	ContainerLogo,
 	ButtonAdmin,
-	ButtonOption,
-	ButtonTop,
+
 	Options,
 	ContainerInfoButton,
-	ContainerInfoOption,
-	ContainerInfoTop,
+
 } from "./Styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ButtonAnimated, LinkAnimated } from './../../Themes/Buttons.style';
 
+import Request from './Components/Requests';
+import Items from './Components/Items';
+import Inventory from './Components/Inventory';
 
 const optionsMenu = [
 	{
 		icon: ["fa", "boxes-stacked"],
 		info: "Ver Inventario.",
 		isShadow: false,
+		path:"seeInventory",
+		Component: Inventory
 	},
 	{
 		icon: ["fa", "circle-plus"],
 		info: "Añadir Items.",
 		isShadow: false,
+		path:"addItems",
+		Component: Items
+
 	},
 	{
 		icon: ["fa", "list-check"],
 		info: "Ver solicitudes.",
 		isShadow: false,
+		path:"seeRequests",
+		Component: Request
+
 	},
-];
+]
 
 const Panel = () => {
+	const navigate = useNavigate();
+	const { option, userName } = useParams();
+
+	console.log(option);
+
+	const goOption = path=>{
+		navigate(`/admin/${userName}/${path}`,{replace: false});
+	}
+
+	
 	return (
 		<ContainerPage>
 			<Nav>
@@ -51,8 +69,8 @@ const Panel = () => {
 				<ContainerMenu>
 					<Menu>
 						<Options>
-							{optionsMenu.map(({ icon, info, isShadow }, index) => (
-								<ButtonAdmin key={index} isShadow={isShadow}>
+							{optionsMenu.map(({ icon, info, isShadow, path }, index) => (
+								<ButtonAdmin key={index} isShadow={isShadow} onClick={()=>goOption(path)}>
 									<span>
 										<FontAwesomeIcon icon={icon} />
 									</span>
@@ -64,53 +82,48 @@ const Panel = () => {
 						</Options>
 					</Menu>
 				</ContainerMenu>
-				<ButtonOption isShadow={true}>
+
+				<ButtonAdmin isShadow={true}>
 					<span>
 						<FontAwesomeIcon icon={["fa", "gear"]} />
 					</span>
-					<ContainerInfoOption>
-						<span>
-							<LinkAnimated>
-								Activar Notificaciones
-							</LinkAnimated>
-						</span>
-					</ContainerInfoOption>
-				</ButtonOption>
+				</ButtonAdmin>
 			</Nav>
 			<Content>
 				<Header>
-					<Tittle>
-						Administrador
-					</Tittle>
+					{
+						optionsMenu.filter(({path})=> path === option ).length === 0 ? 
+							<Tittle>
+								<FontAwesomeIcon icon={["fa","circle-info"]}/> &nbsp;
+								Ruta no encontrada.
+							</Tittle>:""
+					}
+					{
+						optionsMenu.filter(({path})=> path === option ).map(({icon,info}, index)=>
+							<Tittle key={index}>
+								<FontAwesomeIcon icon={icon}/> &nbsp;
+								{info}
+							</Tittle>
+						)
+					}
 					<User>
-						<ButtonTop isShadow={true}>
+						<ButtonAdmin isShadow={true}>
 							<span>
-								<FontAwesomeIcon icon={["fa", "bell"]} />
+								<FontAwesomeIcon icon={["fa", "door-closed"]} />
 							</span>
-							<ContainerInfoTop>
-								<span>
-									Test
-								</span>
-							</ContainerInfoTop>
-						</ButtonTop>
-						<ButtonTop isShadow={true}>
-							<span>
-								<FontAwesomeIcon icon={["fa", "user"]} />
-							</span>
-							<ContainerInfoTop>
-								<span>
-									<LinkAnimated>
-										Cerrar sesión
-									</LinkAnimated>
-								</span>
-							</ContainerInfoTop>
-						</ButtonTop>
+						</ButtonAdmin>
 					</User>
 
 				</Header>
 				
 				<Activity>
-					
+
+					{
+						optionsMenu.filter(({path})=> path === option ).map(({Component}, index)=>
+							<Component key={index}></Component>
+						)
+					}
+
 				</Activity>
 			</Content>
 		</ContainerPage>

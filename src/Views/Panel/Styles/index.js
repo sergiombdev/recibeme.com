@@ -39,7 +39,7 @@ export const Header = styled.div`
 	display: grid;
 	grid-template-columns: 1fr min-content;
 	grid-template-areas: "tittle user";
-	border-bottom: 1px solid var(--textColorPrimary);
+	border-bottom: 1px solid var(--lineColor);
 
 `;
 
@@ -161,7 +161,7 @@ export const ContainerInfoButton = styled.div`
 
 	:before{
 		content: "";
-		position absolute;
+		position: absolute;
 		width: 0;
 		height: 0;
 		border-right: 10px solid transparent;
@@ -169,7 +169,7 @@ export const ContainerInfoButton = styled.div`
 		border-left: 10px solid var(--primaryColor);
 		border-bottom: 10px solid var(--primaryColor);
 
-		left: -15px;
+		left: -8px;
 		bottom: 0;
 		transform: rotateY(180deg);
 	}
@@ -179,39 +179,6 @@ export const ContainerInfoButton = styled.div`
 
 `;
 
-export const ContainerInfoOption = styled.div`
-	position: absolute;
-	min-width: 100px;
-	width: min-content;
-	height: min-content;
-	left: 60px;
-	bottom: 15px;
-	background: var(--backgroundColorGray);
-	color: var(--backgroundColorGray);
-	border: 1px solid var(--backgroundColorGray);
-	border-radius: 20px 20px 20px 0px;
-	padding: 5px;
-	display: none;
-	animation: .5s bounceIn;
-
-`;
-
-export const ContainerInfoTop = styled.div`
-	position: absolute;
-	min-width: 100px;
-	width: min-content;
-	height: min-content;
-	right: -10px;
-	top: 55px;
-	background: var(--backgroundColorGray);
-	color: var(--backgroundColorGray);
-	border: 1px solid var(--backgroundColorGray);
-	border-radius: 20px 20px 20px 0px;
-	padding: 5px;
-	display: none;
-	animation: .5s bounceIn;
-
-`;
 
 export const ButtonAdmin = styled.button`
 	position: relative;
@@ -227,46 +194,6 @@ export const ButtonAdmin = styled.button`
 		({isShadow})=> isShadow? "box-shadow: var(--shadowGlobal);":""
 	}
 	:hover ${ContainerInfoButton}{
-		display: block;
-	}
-`;
-
-export const ButtonOption = styled.button`
-	position: relative;
-	width: 40px;
-	height: 40px;
-	border-radius: 50%;
-	background: transparent;
-	color: var(--textColorPrimary);
-	margin: 0 auto;
-	border: 0;
-	font-size: 17px;
-	${
-		({isShadow})=> isShadow? "box-shadow: var(--shadowGlobal);":""
-	}
-	
-	}
-	:focus ${ContainerInfoOption}{
-		display: block;
-	}
-`;
-
-export const ButtonTop = styled.button`
-	position: relative;
-	width: 40px;
-	height: 40px;
-	border-radius: 50%;
-	background: transparent;
-	color: var(--textColorPrimary);
-	margin: 0 auto;
-	border: 0;
-	font-size: 17px;
-	${
-		({isShadow})=> isShadow? "box-shadow: var(--shadowGlobal);":""
-	}
-	
-	}
-	:focus ${ContainerInfoTop}{
 		display: block;
 	}
 `;

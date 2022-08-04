@@ -11,7 +11,8 @@ import {
     faGear,
     faBell,
     faCirclePlus,
-    faListCheck
+    faListCheck,
+    faDoorClosed
 } from "@fortawesome/free-solid-svg-icons";
 // import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 // import { faListCheck } from "@fortawesome/free-regular-svg-icons";
@@ -29,5 +30,6 @@ export const icons = () => {
         faUser,
         faBell,
         faKey,
+        faDoorClosed
     );
 };

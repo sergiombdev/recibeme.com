@@ -14,5 +14,6 @@ export const light ={
 
 	backgroundColorGray: "#ecf0f1",
 
-	shadowGlobal: "0px 3px 14.6px 1.4px rgba(0, 0, 0, 0.07)" //shadow black
+	shadowGlobal: "0px 3px 14.6px 1.4px rgba(0, 0, 0, 0.07)", //shadow black
+	lineColor: "#d6d6d6"
 };

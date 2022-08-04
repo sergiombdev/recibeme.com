@@ -10,7 +10,8 @@ const Routers = () => (
 		<Routes>
 			
 			<Route exact path="/" element={ <Login/> }/>
-			<Route exact path="/admin/:userName" element={ <Panel/> }/>
+			<Route exact path="/admin/:userName/:option" element={ <Panel/> }/>
+
 			<Route path="*" element={ <Error404/> }/>
 
 		</Routes>
