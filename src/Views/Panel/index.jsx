@@ -24,12 +24,13 @@ const Panel = () => {
 		}
 	};
 
-
 	useEffect(() => {
 		const verifyToken = async () => {
 			try {
 				const { data } = await infoStore();
-				navigate(`/admin/${localStorage.recibemeStoreInfo}`, { replace: false });
+				navigate(`/admin/${localStorage.recibemeStoreInfo}`, {
+					replace: false,
+				});
 				setDataStore(data);
 				setLoading(false);
 			} catch (e) {
@@ -54,7 +55,7 @@ const Panel = () => {
 				</ButtonAnimated>
 			</BarMenu>
 
-			<Content {...dataStore}/>
+			<Content {...dataStore} />
 		</Container>
 	);
 };

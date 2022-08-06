@@ -17,7 +17,7 @@ export const documentation = [
         "weight": 20,
         "addressWarehouse": "warehouse address"
     }
-]`
+]`,
 	},
 	{
 		url: "api/inventory/stock/total",
@@ -36,8 +36,8 @@ export const documentation = [
         "weight": 2, // peso en kg
         "addressWarehouse": "warehouse address"
     }
-]`}
-,
+]`,
+	},
 	{
 		url: "api/inventory/deliverys",
 		method: "GET",
@@ -72,8 +72,8 @@ export const documentation = [
             }
         ]
     }
-]`},
-
+]`,
+	},
 
 	{
 		url: "api/inventory/deliverys/total",
@@ -88,12 +88,13 @@ export const documentation = [
         "deliveryStatus": "pending",
         "total": 2
     }
-]`},
+]`,
+	},
 	{
 		url: "api/inventory/deliverys/filter",
 		method: "POST",
 		headers: "api_key",
-		example: `curl --location --request GET 'https://${window.location.host}/api/inventory/deliverys/filter' 
+		example: `curl --location --request POST 'https://${window.location.host}/api/inventory/deliverys/filter' 
 --header 'api_key: <your api_key> 
 --data-raw '{
     "startDate" : "1/1/2022",
@@ -134,12 +135,13 @@ export const documentation = [
             }
         ]
     }
-]`},
+]`,
+	},
 	{
 		url: "api/inventory/stock/filter",
 		method: "POST",
 		headers: "api_key",
-		example: `curl --location --request GET 'https://${window.location.host}/api/inventory/stock/filter' 
+		example: `curl --location --request POST 'https://${window.location.host}/api/inventory/stock/filter' 
 --header 'api_key: <your api_key> 
 --data-raw '{
     "startDate" : "1/1/2022",
@@ -159,12 +161,13 @@ export const documentation = [
         "weight": null,
         "addressWarehouse": "calle2"
     }
-]`},
-    {
-        url: "api/inventory/request/send",
-        method: "POST",
-        headers: "api_key",
-        example: `curl --location --request GET 'https://${window.location.host}/api/inventory/request/send' 
+]`,
+	},
+	{
+		url: "api/inventory/request/send",
+		method: "POST",
+		headers: "api_key",
+		example: `curl --location --request POST 'https://${window.location.host}/api/inventory/request/send' 
 --header 'api_key: <your api_key> 
 --data-raw '{   
     "firstName": "name your client",
@@ -194,7 +197,7 @@ export const documentation = [
     ] 
 }'
 `,
-        body: `
+		body: `
            <b> firstName </b> (requerido) - Formato texto <b>" minimo 3 caracteres "</b> </br>
            <b> middleName </b> (opcional) - Formato texto <b>" minimo 3 caracteres "</b> </br>
            <b> lastName </b> (requerido) - Formato texto <b>" minimo 3 caracteres "</b> </br>
@@ -208,7 +211,7 @@ export const documentation = [
            <b> shippmentType </b> (opcional) - Formato texto <b>"por defecto regular"</b> </br>
            <b> paymentStatus </b> (requerido) - Formato texto <b>" minimo 3 caracteres "</b> </br>
            <b> clientCellphone </b> (requerido) - Formato texto <b>"+59112345678"</b> </br>
-           <b> clientEmail </b> (requerido) - Formato texto <b>"example@example.com"</b> </br>
+           <b> clientEmail </b> (opcional) - Formato texto <b>"example@example.com"</b> </br>
             
             Para los <b>Items</b> (requerido) - Formato array <b>[ Obj, Obj2, Obj3... ]</b> </br>
             
@@ -217,10 +220,10 @@ export const documentation = [
             <b>quantity</b> (requerido) - Formato numero entero <b> quantity > 0 </b> </br>
             <b>description</b> (opcional) - Formato texto <b>" "</b> </br>
         `,
-        description: `Solicita un envío a los almacenes de recíbeme.com de tus productos.`,
-        response: `{
+		description: `Solicita un envío a los almacenes de recíbeme.com de tus productos.`,
+		response: `{
     "requestCode": "71d2928a-a44f-4139-aadd-6f6eb7ae200b",//codigo de seguimiento de tu solicitud
     "statusRequest": []
-}`}
-
+}`,
+	},
 ];

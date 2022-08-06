@@ -1,24 +1,65 @@
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from "react";
 import { Services } from "./Component/Services";
-import { Container, Info, TokenInfo, SectionApi, FloatButton } from "./Styles";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+	Container,
+	Info,
+	TokenInfo,
+	SectionApi,
+	FloatButton,
+	FormReibeme,
+	ErrorMessage,
+} from "./Styles";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { documentation } from "./documentation";
+
+import { isHeader, isUrl } from "./../../../../Events/validate.events";
 
 export const Content = ({ name = "", token = "" }) => {
 	const [showButton, setShowButton] = useState(false);
+	const [messageError, setMessageError] = useState("");
 
-	let moveTopScroll = () =>{
+	let moveTopScroll = () => {
 		window.scrollTo(0, 0);
-	}
+	};
 
-	useEffect(()=>{
+	let saveWebHook = (e) => {
+		e.preventDefault();
+		const data = Object.fromEntries(new FormData(e.target).entries());
 
-		window.addEventListener('scroll', (event) => {
-			let top  = window.pageYOffset || document.documentElement.scrollTop;
-			setShowButton(top>400?true:false);
+		const isCorrect = [true, true, true];
+
+		try {
+			if (data.url === "") {
+				setMessageError("Necesitamos la url de destino.");
+				isCorrect[0] = false;
+			}
+			if (!isUrl(data.url)) {
+				setMessageError("No es una url.");
+				isCorrect[1] = false;
+			}
+			if (data.headers !== "" && !isHeader(data.headers)) {
+				setMessageError("El formato de lo headers no es el correcto");
+				isCorrect[2] = false;
+			}
+
+			if (isCorrect.every((x) => x)) {
+				console.log("ok");
+			} else {
+				setTimeout(() => {
+					setMessageError("");
+				}, 3000);
+			}
+		} catch (e) {
+			setMessageError("No deberias modificar el codigo.");
+		}
+	};
+
+	useEffect(() => {
+		window.addEventListener("scroll", (event) => {
+			let top = window.pageYOffset || document.documentElement.scrollTop;
+			setShowButton(top > 400 ? true : false);
 		});
-
-	},[setShowButton]);
+	}, [setShowButton]);
 
 	// console.log(showButton);
 
@@ -49,6 +90,16 @@ export const Content = ({ name = "", token = "" }) => {
 								</p>
 							</li>
 						))}
+						<li>
+							<p>
+								webhook :
+								<a
+									href={`${window.location.origin}${window.location.pathname}#service-webhook`}
+								>
+									<b>estado de entrega.</b>
+								</a>
+							</p>
+						</li>
 					</ul>
 				</Info>
 
@@ -59,10 +110,45 @@ export const Content = ({ name = "", token = "" }) => {
 						</Info>
 					</SectionApi>
 				))}
+
+				<Info id="service-webhook">
+					<p>
+						Recibe información del estado de entrega de tus productos con
+						webhooks:
+					</p>
+					<FormReibeme onSubmit={saveWebHook}>
+						<input
+							name="url"
+							type="text"
+							placeholder="URL - ejemplo: https://example.com/webhook"
+							required={true}
+						/>
+
+						<input
+							name="headers"
+							type="text"
+							placeholder={`Headers - ejemplo: "my_header": "val", "my_header2": "val2", ...`}
+						/>
+						<ErrorMessage>{messageError}</ErrorMessage>
+
+						<button>Guardar</button>
+
+						<p>
+							Recuerda que los datos que recibeme enviara seran por el metodo{" "}
+							<b>POST</b>
+						</p>
+
+						<p>
+							Respuesta: <br />
+							<b>Code</b>: texto - codigo de la solicitud <br />
+							<b>deliveryStatus</b>: texto - Estado de envio{" "}
+						</p>
+					</FormReibeme>
+				</Info>
 			</Container>
 			<FloatButton show={showButton} onClick={moveTopScroll}>
 				<span>
-					<FontAwesomeIcon icon={["fa","angle-up"]}/>
+					<FontAwesomeIcon icon={["fa", "angle-up"]} />
 				</span>
 			</FloatButton>
 		</>
