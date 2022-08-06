@@ -1,5 +1,12 @@
-const path = require('path');
-const { RecibemeDB } = require( path.resolve(__dirname,"..","..","..","dataBases","mysql.connect"));
+const path = require("path");
+const { RecibemeDB } = require(path.resolve(
+	__dirname,
+	"..",
+	"..",
+	"..",
+	"dataBases",
+	"mysql.connect"
+));
 
 module.exports.stock = ({ id_store = 0 }) => {
 	const connectionStart = new RecibemeDB();
@@ -97,7 +104,7 @@ module.exports.deliveryTotal = ({ id_store = 0 }) => {
 module.exports.stockInterval = ({
 	id_store = 0,
 	startDate = new Date(
-		new Date().getFullYear() + "/" + new Date().getMonth() + "/1",
+		new Date().getFullYear() + "/" + new Date().getMonth() + "/1"
 	).toLocaleDateString(),
 	endDate = new Date().toLocaleDateString(),
 }) => {
@@ -128,7 +135,7 @@ module.exports.stockInterval = ({
 module.exports.deliveryInterval = ({
 	id_store = 0,
 	startDate = new Date(
-		new Date().getFullYear() + "/" + new Date().getMonth() + "/1",
+		new Date().getFullYear() + "/" + new Date().getMonth() + "/1"
 	).toLocaleDateString(),
 	endDate = new Date().toLocaleDateString(),
 }) => {
@@ -172,12 +179,13 @@ module.exports.newRequest = ({ preferedDeliveryTime, ...data }) => {
 	const connectionStart = new RecibemeDB();
 	const connect = connectionStart.getConnection();
 
-	const query = `call loadRequest('${JSON.stringify(newData)}',@errorCode, @errorItem);`;
+	const query = `call loadRequest('${JSON.stringify(
+		newData
+	)}',@errorCode, @errorItem);`;
 
 	return new Promise((resolve, reject) => {
 		connect.query(query, (error, result, fields) => {
-
-			if (error){
+			if (error) {
 				connectionStart.connectionClose();
 				reject({
 					status: 500,
@@ -185,32 +193,37 @@ module.exports.newRequest = ({ preferedDeliveryTime, ...data }) => {
 				});
 			}
 
-			connect.query("select @errorCode, @errorItem;", (error, result, fields) => {
-				connectionStart.connectionClose();
+			connect.query(
+				"select @errorCode, @errorItem;",
+				(error, result, fields) => {
+					connectionStart.connectionClose();
 
-				// console.log(result);
-				if (error){
-					reject({
-						status: 500,
-						message: "Internal server error.",
+					// console.log(result);
+					if (error) {
+						reject({
+							status: 500,
+							message: "Internal server error.",
+						});
+					}
+
+					let errorCode = result[0]["@errorCode"]
+						.replaceAll("codes_", "")
+						.split("_");
+					let errorItem = result[0]["@errorItem"]
+						.replaceAll("items_", "")
+						.split("_");
+
+					let stockItems = errorItem.map((x) => ({
+						nameItem: x,
+						error: "You don't have enough items to cover that sale.",
+					}));
+
+					resolve({
+						requestCode: newData.requestCode,
+						statusRequest: errorItem[0] !== "items" ? stockItems : [],
 					});
 				}
-
-				let errorCode = result[0]["@errorCode"].replaceAll("codes_","").split("_");
-				let errorItem = result[0]["@errorItem"].replaceAll("items_","").split("_");
-
-			
-				let stockItems = errorItem.map(x=>({
-					nameItem: x,
-					error: "You don't have enough items to cover that sale."
-				}));
-
-				resolve({ 
-					requestCode: newData.requestCode,
-					statusRequest: errorItem[0] !== "items" ? stockItems : []
-				});
-
-			});
+			);
 		});
 	});
 };

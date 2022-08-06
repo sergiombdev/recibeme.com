@@ -2,7 +2,7 @@ const fs = require("fs");
 const morgan = require("morgan");
 const winston = require("winston");
 require("winston-daily-rotate-file");
-const path = require('path');
+const path = require("path");
 
 const formatLog =
 	":method | :status | :url | :response-time ms | :remote-addr | :remote-user | :dateServer";
@@ -23,23 +23,23 @@ module.exports.requestLogs =
 		? morgan(formatLog)
 		: morgan(formatLog, {
 				stream: fs.createWriteStream(
-					path.resolve(__dirname,"..","logs","request",`${nameLog()}.log`),
+					path.resolve(__dirname, "..", "logs", "request", `${nameLog()}.log`),
 					{
 						flags: "a",
-					},
+					}
 				),
 		  });
 
-module.exports.filesLogsControl = (req,res,next) => {
-	
-	process.env.ENVIRONMENT === "prod" ?
-		new winston.transports.DailyRotateFile({
-			filename: "logs/request/%DATE%.log",
-			datePattern: "DD.MM.YYYY",
-			zippedArchive: true,
-			maxSize: "20m",
-			maxFiles: "7",
-		}) : null;
+module.exports.filesLogsControl = (req, res, next) => {
+	process.env.ENVIRONMENT === "prod"
+		? new winston.transports.DailyRotateFile({
+				filename: "logs/request/%DATE%.log",
+				datePattern: "DD.MM.YYYY",
+				zippedArchive: true,
+				maxSize: "20m",
+				maxFiles: "7",
+		  })
+		: null;
 
 	next();
-}
+};

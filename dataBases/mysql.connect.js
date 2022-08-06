@@ -4,7 +4,7 @@ const {
 	user,
 	password,
 	database,
-	port_db:port,
+	port_db: port,
 	connectionLimit,
 } = require("./../env");
 

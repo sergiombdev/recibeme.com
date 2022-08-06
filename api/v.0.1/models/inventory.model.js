@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require("path");
 
 const {
 	stock,
@@ -7,12 +7,24 @@ const {
 	deliveryTotal,
 	stockInterval,
 	deliveryInterval,
-	newRequest
-} = require( path.resolve(__dirname,"..","controlers","inventory.controller"));
+	newRequest,
+} = require(path.resolve(
+	__dirname,
+	"..",
+	"controlers",
+	"inventory.controller"
+));
 
-const { v4: uuid } = require('uuid');
+const { v4: uuid } = require("uuid");
 
-const { isDate, isCellphone, isEmail,isEmpty } = require(path.resolve(__dirname,"..","..","..","events","validate.format"));
+const { isDate, isCellphone, isEmail, isEmpty } = require(path.resolve(
+	__dirname,
+	"..",
+	"..",
+	"..",
+	"events",
+	"validate.format"
+));
 
 module.exports.stockStore = async (req, res) => {
 	try {
@@ -94,7 +106,7 @@ module.exports.allDeliveryInterval = async (req, res) => {
 	}
 };
 
-module.exports.sendRequest = async(req, res) => {
+module.exports.sendRequest = async (req, res) => {
 	const { id_store: storeID } = req.infoStore;
 	const {
 		lng = "",
@@ -112,7 +124,7 @@ module.exports.sendRequest = async(req, res) => {
 		country = false,
 		paymentStatus = false,
 		clientCellphone = false,
-		items = []
+		items = [],
 	} = req.body;
 
 	const automatizedData = {
@@ -135,20 +147,16 @@ module.exports.sendRequest = async(req, res) => {
 			: false;
 
 	if (!isValidData)
-		return res
-			.status(403)
-			.json({
-				status: 403,
-				message: `Please send all the required data: firstName,lastName ,address ,city ,state ,country ,paymentStatus,,clientCellphone ,items.`,
-			});
+		return res.status(403).json({
+			status: 403,
+			message: `Please send all the required data: firstName,lastName ,address ,city ,state ,country ,paymentStatus,,clientCellphone ,items.`,
+		});
 
-	if ((items.length === 0))
-		return res
-			.status(403)
-			.json({
-				status: 403,
-				message: `We need to know what products to send. The items field is required`,
-			});
+	if (items.length === 0)
+		return res.status(403).json({
+			status: 403,
+			message: `We need to know what products to send. The items field is required`,
+		});
 
 	let dates = { preferedDeliveryTime };
 	let strings = {
@@ -162,92 +170,82 @@ module.exports.sendRequest = async(req, res) => {
 		shippmentType,
 	};
 
-
 	let emails = { clientEmail };
 	let cellPhone = { clientCellphone };
 
 	const validateDate = Object.entries(dates).every((val) => isDate(val[1]));
-	const validateStrings = Object.entries(strings).every((val) => isEmpty(val[1]));
+	const validateStrings = Object.entries(strings).every((val) =>
+		isEmpty(val[1])
+	);
 	const validateEmail = Object.entries(emails).every((val) => isEmail(val[1]));
 	const validateCellPhone = Object.entries(cellPhone).every((val) =>
-		isCellphone(val[1]),
+		isCellphone(val[1])
 	);
 
 	if (!validateDate)
 		return res
 			.status(403)
-			.json({ status: 403, message: "Check the format of preferredDeliveryTime." });
-	if (!validateStrings)
-		return res
-			.status(403)
 			.json({
 				status: 403,
-				message:
-					"It looks like you sent some data that was empty or had an invalid character length. make sure they have at least 3 letters",
+				message: "Check the format of preferredDeliveryTime.",
 			});
+	if (!validateStrings)
+		return res.status(403).json({
+			status: 403,
+			message:
+				"It looks like you sent some data that was empty or had an invalid character length. make sure they have at least 3 letters",
+		});
 	if (!validateEmail)
 		return res
 			.status(403)
 			.json({ status: 403, message: "ClientEmail is not a valid email." });
 	if (!validateCellPhone)
-		return res
-			.status(403)
-			.json({
-				status: 403,
-				message: "ClientCellphone is not a valid cell phone number.",
-			});
+		return res.status(403).json({
+			status: 403,
+			message: "ClientCellphone is not a valid cell phone number.",
+		});
 
 	if (typeof prime !== "boolean")
-		return res
-			.status(403)
-			.json({
-				status: 403,
-				message: "The value of the prime field must be boolean.",
-			});
+		return res.status(403).json({
+			status: 403,
+			message: "The value of the prime field must be boolean.",
+		});
 
 	const validateItems = items.every(({ name = false, quantity = false }) =>
-		name && quantity ? true : false,
+		name && quantity ? true : false
 	);
 
 	if (!validateItems)
-		return res
-			.status(403)
-			.json({
-				status: 403,
-				message:
-					"You must send the data required for each product. name, quantity",
-			});
+		return res.status(403).json({
+			status: 403,
+			message:
+				"You must send the data required for each product. name, quantity",
+		});
 
 	const formatItems = items.map(({ description = "", ...val }) => ({
 		description,
 		...val,
 	}));
 
-	const validateFormatItems = items.every(({ name, quantity}) =>
-		isEmpty(name) && !isNaN(parseInt(quantity)) ? true : false,
+	const validateFormatItems = items.every(({ name, quantity }) =>
+		isEmpty(name) && !isNaN(parseInt(quantity)) ? true : false
 	);
 
-	if(!validateFormatItems)	
-		return res
-			.status(403)
-			.json({
-				status: 403,
-				message:
-					"Quantity must be an integer greater than 0",
-			});
+	if (!validateFormatItems)
+		return res.status(403).json({
+			status: 403,
+			message: "Quantity must be an integer greater than 0",
+		});
 
-	const validateQuantityItems = items.every(({ name, quantity}) =>	
-		quantity > 0 ? true : false,
+	const validateQuantityItems = items.every(({ name, quantity }) =>
+		quantity > 0 ? true : false
 	);
 
-	if(!validateQuantityItems)	
-		return res
-			.status(403)
-			.json({
-				status: 403,
-				message:
-					"Quantity must be an integer greater than 0",
-			});
+	if (!validateQuantityItems)
+		return res.status(403).json({
+			status: 403,
+			message: "Quantity must be an integer greater than 0",
+		});
 
 	const defaultValues = {
 		lng,
@@ -268,7 +266,6 @@ module.exports.sendRequest = async(req, res) => {
 	};
 
 	try {
-
 		const result = await newRequest(newData);
 
 		res.status(200).json(result);

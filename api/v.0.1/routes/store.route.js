@@ -1,6 +1,11 @@
 const { Router } = require("express");
 const router = Router();
 
-router.get("/info", require("./../models/store.model").infoStore);
+const path = require("path");
+
+router.get(
+	"/info",
+	require(path.resolve(__dirname, "..", "models", "store.model")).infoStore
+);
 
 module.exports = router;

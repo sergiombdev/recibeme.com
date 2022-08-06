@@ -1,31 +1,32 @@
 {
-  "name": "server",
-  "version": "0.1.0",
-  "description": "api rest server ",
-  "main": "main.js",
-  "scripts": {
-    "run:dev": "set ENVIRONMENT=dev&& nodemon main.js",
-    "run:prod": "set ENVIRONMENT=prod&& node main.js",
-    "test": "jest"
-  },
-  "author": "recibeme.com",
-  "license": "MIT",
-  "dependencies": {
-    "body-parser": "^1.20.0",
-    "cors": "^2.8.5",
-    "dotenv": "^16.0.1",
-    "express": "^4.18.1",
-    "helmet": "^5.1.1",
-    "jwt-simple": "^0.5.6",
-    "morgan": "^1.10.0",
-    "mysql": "^2.18.1",
-    "nodemailer": "^6.7.7",
-    "uuid": "^8.3.2",
-    "uuidv4": "^6.2.13",
-    "winston": "^3.8.0",
-    "winston-daily-rotate-file": "^4.7.1"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.18"
-  }
+	"name": "server",
+	"version": "0.1.0",
+	"description": "api rest server ",
+	"main": "main.js",
+	"scripts": {
+		"run:dev": "set ENVIRONMENT=dev&& nodemon main.js",
+		"run:prod": "set ENVIRONMENT=prod&& node main.js",
+		"test": "jest"
+	},
+	"author": "recibeme.com",
+	"license": "MIT",
+	"dependencies": {
+		"body-parser": "^1.20.0",
+		"cors": "^2.8.5",
+		"dotenv": "^16.0.1",
+		"express": "^4.18.1",
+		"helmet": "^5.1.1",
+		"jwt-simple": "^0.5.6",
+		"morgan": "^1.10.0",
+		"mysql": "^2.18.1",
+		"nodemailer": "^6.7.7",
+		"uuid": "^8.3.2",
+		"uuidv4": "^6.2.13",
+		"winston": "^3.8.0",
+		"winston-daily-rotate-file": "^4.7.1",
+		"node-fetch": "2.0.7"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.18"
+	}
 }

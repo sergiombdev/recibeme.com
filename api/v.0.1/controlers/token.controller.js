@@ -1,8 +1,15 @@
-const path = require('path');
+const path = require("path");
 
-const { RecibemeDB } = require( path.resolve(__dirname,"..","..","..","dataBases","mysql.connect"));
+const { RecibemeDB } = require(path.resolve(
+	__dirname,
+	"..",
+	"..",
+	"..",
+	"dataBases",
+	"mysql.connect"
+));
 
-module.exports.isToken = ( token ) => {
+module.exports.isToken = (token) => {
 	const connectionStart = new RecibemeDB();
 	const connect = connectionStart.getConnection();
 	const query = `call tokenVerification("${token}");`;
@@ -25,7 +32,7 @@ module.exports.isToken = ( token ) => {
 					message: "Access denied.",
 				});
 
-			resolve( data[0] );
+			resolve(data[0]);
 		});
 	});
 };

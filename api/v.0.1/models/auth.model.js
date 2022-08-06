@@ -1,4 +1,11 @@
-const { login } = require("./../controlers/auth.controller");
+const path = require("path");
+
+const { login } = require(path.resolve(
+	__dirname,
+	"..",
+	"controlers",
+	"auth.controller"
+));
 
 module.exports.authStore = async (req, res) => {
 	try {

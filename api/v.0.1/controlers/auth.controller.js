@@ -1,14 +1,30 @@
-const path = require('path');
+const path = require("path");
 
-const { RecibemeDB } = require( path.resolve(__dirname,"..","..","..","dataBases","mysql.connect"));
-const { generateToken } = require( path.resolve(__dirname,"..","..","..","events","token.events"));
+const { RecibemeDB } = require(path.resolve(
+	__dirname,
+	"..",
+	"..",
+	"..",
+	"dataBases",
+	"mysql.connect"
+));
+const { generateToken } = require(path.resolve(
+	__dirname,
+	"..",
+	"..",
+	"..",
+	"events",
+	"token.events"
+));
 
 module.exports.login = ({ username = "", password = "" }) => {
 	const connectionStart = new RecibemeDB();
 	const connect = connectionStart.getConnection();
-	const query = `call authStore("${username}","${password}","${
-		generateToken({username,password,timeStamp:+new Date()})
-	}");`;
+	const query = `call authStore("${username}","${password}","${generateToken({
+		username,
+		password,
+		timeStamp: +new Date(),
+	})}");`;
 
 	return new Promise((resolve, reject) => {
 		connect.query(query, (error, result, fields) => {
@@ -28,7 +44,7 @@ module.exports.login = ({ username = "", password = "" }) => {
 					message: "Access denied.",
 				});
 
-			resolve( data[0] );
+			resolve(data[0]);
 		});
 	});
 };
