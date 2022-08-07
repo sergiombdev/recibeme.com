@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const ButtonAnimated = styled.button`
 	position: relative;
@@ -12,7 +12,7 @@ export const ButtonAnimated = styled.button`
 	line-height: 2em;
 	overflow: hidden;
 	border: 2px solid var(--primaryColor);
-	transition: color .5s;
+	transition: color 0.5s;
 	z-index: 1;
 	font-size: 14px;
 	border-radius: 30px;
@@ -22,7 +22,7 @@ export const ButtonAnimated = styled.button`
 	background: var(--backgroundColor);
 	box-shadow: var(--shadowGlobal);
 
-	:before{
+	:before {
 		content: "";
 		position: absolute;
 		z-index: -1;
@@ -32,26 +32,24 @@ export const ButtonAnimated = styled.button`
 		border-radius: 50%;
 	}
 
-	:before{
+	:before {
 		top: 100%;
 		left: 100%;
-		transition: all .7s;
+		transition: all 0.7s;
 	}
 	:hover {
 		color: var(--textColorSecundary);
 	}
 
-
-	:hover:before{
+	:hover:before {
 		top: -30px;
 		left: -30px;
 	}
 
-	:active:before{
+	:active:before {
 		background: var(--primaryColor);
 		transition: background 0s;
 	}
-
 `;
 
 export const LinkAnimated = styled.button`
@@ -64,7 +62,7 @@ export const LinkAnimated = styled.button`
 	line-height: 1em;
 	overflow: hidden;
 	border: 2px solid var(--SecundaryColor);
-	transition: color .5s;
+	transition: color 0.5s;
 	z-index: 1;
 	font-size: 12px;
 	border-radius: 30px;
@@ -74,7 +72,7 @@ export const LinkAnimated = styled.button`
 	background: var(--backgroundColor);
 	box-shadow: var(--shadowGlobal);
 
-	:before{
+	:before {
 		content: "";
 		position: absolute;
 		z-index: -1;
@@ -84,24 +82,22 @@ export const LinkAnimated = styled.button`
 		border-radius: 50%;
 	}
 
-	:before{
+	:before {
 		top: 100%;
 		left: 100%;
-		transition: all .7s;
+		transition: all 0.7s;
 	}
 	:hover {
 		color: var(--textColorSecundary);
 	}
 
-
-	:hover:before{
+	:hover:before {
 		top: -30px;
 		left: -30px;
 	}
 
-	:active:before{
+	:active:before {
 		background: var(--primaryColor);
 		transition: background 0s;
 	}
-
 `;
