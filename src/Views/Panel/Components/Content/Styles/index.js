@@ -4,7 +4,7 @@ export const Container = styled.div`
 	grid-area: content;
 	display: grid;
 	grid-auto-rows: min-content;
-	grid-template-columns: repeat(auto-fit, minmax(200px, 900px));
+	grid-template-columns: minmax(200px, 900px);
 	justify-content: center;
 	grid-gap: 1rem;
 	padding-bottom: 20rem;

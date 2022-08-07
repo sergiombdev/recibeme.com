@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Services } from "./Component/Services";
+import Swal from "sweetalert2";
 import {
 	Container,
 	Info,
@@ -7,22 +8,26 @@ import {
 	SectionApi,
 	FloatButton,
 	FormReibeme,
-	ErrorMessage,
 } from "./Styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { documentation } from "./documentation";
 
 import { isHeader, isUrl } from "./../../../../Events/validate.events";
+import { updateWebHookData } from "./../../../../Events/requests.events";
 
-export const Content = ({ name = "", token = "" }) => {
+export const Content = ({
+	name = "",
+	token = "",
+	confirmationUrl = "",
+	confirmationHeaders = "",
+}) => {
 	const [showButton, setShowButton] = useState(false);
-	const [messageError, setMessageError] = useState("");
 
 	let moveTopScroll = () => {
 		window.scrollTo(0, 0);
 	};
 
-	let saveWebHook = (e) => {
+	let saveWebHook = async (e) => {
 		e.preventDefault();
 		const data = Object.fromEntries(new FormData(e.target).entries());
 
@@ -30,27 +35,62 @@ export const Content = ({ name = "", token = "" }) => {
 
 		try {
 			if (data.url === "") {
-				setMessageError("Necesitamos la url de destino.");
+				Swal.fire({
+					icon: "error",
+					title: "Oops...",
+					text: "Necesitamos la url de destino.",
+				});
 				isCorrect[0] = false;
 			}
 			if (!isUrl(data.url)) {
-				setMessageError("No es una url.");
+				Swal.fire({
+					icon: "error",
+					title: "Oops...",
+					text: "No es una url.",
+				});
 				isCorrect[1] = false;
 			}
 			if (data.headers !== "" && !isHeader(data.headers)) {
-				setMessageError("El formato de lo headers no es el correcto");
+				Swal.fire({
+					icon: "error",
+					title: "Oops...",
+					text: "El formato de lo headers no es el correcto",
+				});
 				isCorrect[2] = false;
 			}
 
+			try {
+				JSON.parse(`{ ${data.headers} }`);
+			} catch (e) {
+				Swal.fire({
+					icon: "error",
+					title: "Oops...",
+					text: "El formato de lo headers no es el correcto",
+				});
+				return;
+			}
+
 			if (isCorrect.every((x) => x)) {
-				console.log("ok");
-			} else {
-				setTimeout(() => {
-					setMessageError("");
-				}, 3000);
+				try {
+					await updateWebHookData(data);
+					Swal.fire({
+						icon: "success",
+						title: "Datos actualizados",
+					});
+				} catch (e) {
+					Swal.fire({
+						icon: "error",
+						title: "Oops...",
+						text: "El servidor se encuentra en mantenimiento.",
+					});
+				}
 			}
 		} catch (e) {
-			setMessageError("No deberias modificar el codigo.");
+			Swal.fire({
+				icon: "error",
+				title: "Oops...",
+				text: "No deberias modificar el codigo.",
+			});
 		}
 	};
 
@@ -122,14 +162,15 @@ export const Content = ({ name = "", token = "" }) => {
 							type="text"
 							placeholder="URL - ejemplo: https://example.com/webhook"
 							required={true}
+							defaultValue={confirmationUrl}
 						/>
 
 						<input
 							name="headers"
 							type="text"
 							placeholder={`Headers - ejemplo: "my_header": "val", "my_header2": "val2", ...`}
+							defaultValue={confirmationHeaders}
 						/>
-						<ErrorMessage>{messageError}</ErrorMessage>
 
 						<button>Guardar</button>
 

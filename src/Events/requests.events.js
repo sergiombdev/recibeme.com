@@ -35,3 +35,17 @@ export const infoStore = () =>
 				reject(e.response);
 			});
 	});
+
+export const updateWebHookData = (data) =>
+	new Promise((resolve, reject) => {
+		instance({
+			api_key: localStorage.recibemeStoreToken || "",
+		})
+			.post("/store/config/hook", data)
+			.then((response) => {
+				resolve(response);
+			})
+			.catch((e) => {
+				reject(e.response);
+			});
+	});

@@ -1,3 +1,9 @@
-const Loading = ({message=""}) => <h1>Cargando...</h1>
+import { ContainerPage, Loader } from "./Styles";
+
+const Loading = ({ message = "Cargando" }) => (
+	<ContainerPage>
+		<Loader></Loader>
+	</ContainerPage>
+);
 
 export default Loading;
