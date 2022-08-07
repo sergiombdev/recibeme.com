@@ -1,0 +1,31 @@
+import styled from 'styled-components';
+
+
+export const Form = styled.form`
+	position: relative;
+	grid-area: loginContainer;
+	display: grid;
+	grid-gap: 1rem;
+	grid-template-rows: auto;
+	box-shadow: var(--shadowGlobal);
+	height: min-content;
+
+	padding: 2rem 2rem 4rem 2rem;
+	border-radius: 10px;
+
+	justify-items: center;
+
+	h4{
+		text-align: center;
+		color: var(--textColorGray);
+		text-transform: capitalize;
+	}
+
+		@media screen and (max-width: 650px){
+			width: 20%;
+			height: 20%;
+			left: -10%;
+			top: 0;
+		}
+	}
+`;

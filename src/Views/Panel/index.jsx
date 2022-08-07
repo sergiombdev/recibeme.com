@@ -12,7 +12,6 @@ import {
 	Logo,
 	ContainerLogo,
 	ButtonAdmin,
-
 	Options,
 	ContainerInfoButton,
 
