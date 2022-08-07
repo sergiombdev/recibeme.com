@@ -1,4 +1,7 @@
+const path = require("path");
 const mysql = require("mysql");
+const fs = require("fs");
+
 const {
 	host,
 	user,
@@ -6,7 +9,7 @@ const {
 	database,
 	port_db: port,
 	connectionLimit,
-} = require("./../env");
+} = require(path.resolve(__dirname, "..", "env"));
 
 class RecibemeDB {
 	constructor() {
@@ -17,6 +20,9 @@ class RecibemeDB {
 			database,
 			port,
 			connectionLimit,
+			ssl: {
+				ca: fs.readFileSync(__dirname + "/ca-certificate.crt"),
+			},
 		});
 		this.connection.connect();
 	}

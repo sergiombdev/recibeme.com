@@ -11,7 +11,29 @@ const { RecibemeDB } = require(path.resolve(
 module.exports.stock = ({ id_store = 0 }) => {
 	const connectionStart = new RecibemeDB();
 	const connect = connectionStart.getConnection();
-	const query = `call stockInventory("${id_store}");`;
+	const query = `call stockInventory('${id_store}');`;
+
+	return new Promise((resolve, reject) => {
+		connect.query(query, (error, result, fields) => {
+			connectionStart.connectionClose();
+
+			let data = result ? result : [];
+
+			if (error)
+				reject({
+					status: 500,
+					message: "Internal server error.",
+				});
+
+			resolve(data[0] ? data[0] : []);
+		});
+	});
+};
+
+module.exports.updateWebHook = ({ id_store = 0, url = "", headers = "" }) => {
+	const connectionStart = new RecibemeDB();
+	const connect = connectionStart.getConnection();
+	const query = `call webHookUpdate('${id_store}','${url}','${headers}');`;
 
 	return new Promise((resolve, reject) => {
 		connect.query(query, (error, result, fields) => {
@@ -33,7 +55,7 @@ module.exports.stock = ({ id_store = 0 }) => {
 module.exports.totalStock = ({ id_store = 0 }) => {
 	const connectionStart = new RecibemeDB();
 	const connect = connectionStart.getConnection();
-	const query = `call totalStockInventory("${id_store}");`;
+	const query = `call totalStockInventory('${id_store}');`;
 
 	return new Promise((resolve, reject) => {
 		connect.query(query, (error, result, fields) => {
@@ -55,7 +77,7 @@ module.exports.totalStock = ({ id_store = 0 }) => {
 module.exports.deliveryDetails = ({ id_store = 0 }) => {
 	const connectionStart = new RecibemeDB();
 	const connect = connectionStart.getConnection();
-	const query = `call DetailsDelivery("${id_store}");`;
+	const query = `call DetailsDelivery('${id_store}');`;
 
 	return new Promise((resolve, reject) => {
 		connect.query(query, (error, result, fields) => {
@@ -82,7 +104,7 @@ module.exports.deliveryDetails = ({ id_store = 0 }) => {
 module.exports.deliveryTotal = ({ id_store = 0 }) => {
 	const connectionStart = new RecibemeDB();
 	const connect = connectionStart.getConnection();
-	const query = `call totalDelivery("${id_store}");`;
+	const query = `call totalDelivery('${id_store}');`;
 
 	return new Promise((resolve, reject) => {
 		connect.query(query, (error, result, fields) => {
@@ -110,10 +132,10 @@ module.exports.stockInterval = ({
 }) => {
 	const connectionStart = new RecibemeDB();
 	const connect = connectionStart.getConnection();
-	const query = `call stockInventoryInterval("${id_store}","${startDate
+	const query = `call stockInventoryInterval('${id_store}','${startDate
 		.split("/")
 		.reverse()
-		.join("-")}","${endDate.split("/").reverse().join("-")}");`;
+		.join("-")}','${endDate.split("/").reverse().join("-")}');`;
 
 	return new Promise((resolve, reject) => {
 		connect.query(query, (error, result, fields) => {
@@ -141,10 +163,10 @@ module.exports.deliveryInterval = ({
 }) => {
 	const connectionStart = new RecibemeDB();
 	const connect = connectionStart.getConnection();
-	const query = `call DetailsDeliveryInterval("${id_store}","${startDate
+	const query = `call DetailsDeliveryInterval('${id_store}','${startDate
 		.split("/")
 		.reverse()
-		.join("-")}","${endDate.split("/").reverse().join("-")}");`;
+		.join("-")}','${endDate.split("/").reverse().join("-")}');`;
 
 	return new Promise((resolve, reject) => {
 		connect.query(query, (error, result, fields) => {

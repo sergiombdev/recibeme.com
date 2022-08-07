@@ -12,3 +12,8 @@ module.exports.isEmail = (val) => /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/g.exec(val);
 
 module.exports.isEmpty = (val) =>
 	/^([#@£$-/:-?{-~!"^_ `\[\]a-zA-Z0-9]){3,25}$/g.exec(val);
+
+module.exports.isUrl = (val) =>
+	/((\w+:\/\/)[-a-zA-Z0-9:@;?&=\/%\+\.\*!'\(\),\$_\{\}\^~\[\]`#|]+)/g.exec(val);
+
+module.exports.isHeader = (val) => /"([^"]*)":([^,]*)/g.exec(val);

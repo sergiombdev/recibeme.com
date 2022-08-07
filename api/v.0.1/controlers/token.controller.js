@@ -12,7 +12,35 @@ const { RecibemeDB } = require(path.resolve(
 module.exports.isToken = (token) => {
 	const connectionStart = new RecibemeDB();
 	const connect = connectionStart.getConnection();
-	const query = `call tokenVerification("${token}");`;
+	const query = `call tokenVerification('${token}');`;
+
+	return new Promise((resolve, reject) => {
+		connect.query(query, (error, result, fields) => {
+			connectionStart.connectionClose();
+
+			let data = result ? result[0] : [];
+
+			if (error)
+				reject({
+					status: 500,
+					message: "Internal server error.",
+				});
+
+			if (data.length === 0)
+				reject({
+					status: 403,
+					message: "Access denied.",
+				});
+
+			resolve(data[0]);
+		});
+	});
+};
+
+module.exports.isTokenWarehouse = (token) => {
+	const connectionStart = new RecibemeDB();
+	const connect = connectionStart.getConnection();
+	const query = `call tokenVerificationWarehouse('${token}');`;
 
 	return new Promise((resolve, reject) => {
 		connect.query(query, (error, result, fields) => {
