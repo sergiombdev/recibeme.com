@@ -1,7 +1,4 @@
 const request = require("request");
-const TOKEN_VALUE =
-	"Bearer EAAGEXpRzQbYBAEw0fx4tK4et0mpyrHagZCF0BRxvy6o5FzssZCJLvxLk2nZALM6b9IvtNVDF0KiYOpLaHk1M6nn6sSqUKnlQxaj7ejqYsZBAGQ874JzKGFwBa1LFUs4HS71R0VE0cY1ERZBfrKZBWR0zTxSM1yIPjWY9WBC1evlLDE0O4EuuQPXk9TnkxGKLZAr1ZCcAjBhSgAZDZD";
-const API_URL = "https://graph.facebook.com/v13.0/101238302648581/messages";
 
 module.exports.botWhatsApp = (
 	to,
