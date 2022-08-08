@@ -190,20 +190,34 @@ module.exports.deliveryInterval = ({
 	});
 };
 
-module.exports.newRequest = ({ preferedDeliveryTime, ...data }) => {
+module.exports.newRequest = ({
+	preferedDeliveryTime,
+	fullDate,
+	prime,
+	...data
+}) => {
 	const formatPreferedDeliveryTime = preferedDeliveryTime
 		.split("/")
 		.reverse()
 		.join("-");
 
-	const newData = { preferedDeliveryTime: formatPreferedDeliveryTime, ...data };
+	const formatfullDate = fullDate.split("/").reverse().join("-");
+
+	const formatPrime = prime ? 1 : 0;
+
+	const newData = {
+		preferedDeliveryTime: formatPreferedDeliveryTime,
+		fullDate: formatfullDate,
+		prime: formatPrime,
+		...data,
+	};
 
 	const connectionStart = new RecibemeDB();
 	const connect = connectionStart.getConnection();
 
 	const query = `call loadRequest('${JSON.stringify(
 		newData
-	)}',@errorCode, @errorItem);`;
+	)}',@errorCodes, @errorItems, @errorMessages);`;
 
 	return new Promise((resolve, reject) => {
 		connect.query(query, (error, result, fields) => {
@@ -216,11 +230,11 @@ module.exports.newRequest = ({ preferedDeliveryTime, ...data }) => {
 			}
 
 			connect.query(
-				"select @errorCode, @errorItem;",
+				"select @errorCodes, @errorItems, @errorMessages;",
 				(error, result, fields) => {
 					connectionStart.connectionClose();
 
-					// console.log(result);
+					console.log(result);
 					if (error) {
 						reject({
 							status: 500,
@@ -228,10 +242,10 @@ module.exports.newRequest = ({ preferedDeliveryTime, ...data }) => {
 						});
 					}
 
-					let errorCode = result[0]["@errorCode"]
-						.replaceAll("codes_", "")
-						.split("_");
-					let errorItem = result[0]["@errorItem"]
+					// let errorCode = result[0]["@errorCodes"]
+					// 	.replaceAll("codes_", "")
+					// 	.split("_");
+					let errorItem = result[0]["@errorItems"]
 						.replaceAll("items_", "")
 						.split("_");
 
@@ -243,6 +257,7 @@ module.exports.newRequest = ({ preferedDeliveryTime, ...data }) => {
 					resolve({
 						requestCode: newData.requestCode,
 						statusRequest: errorItem[0] !== "items" ? stockItems : [],
+						errorMessage: result[0]["@errorCodes"],
 					});
 				}
 			);

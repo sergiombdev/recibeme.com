@@ -1,0 +1,34 @@
+{
+  "files": {
+    "main.css": "/static/css/main.5da68ca8.css",
+    "main.js": "/static/js/main.458d58b1.js",
+    "static/js/27.abd2a82d.chunk.js": "/static/js/27.abd2a82d.chunk.js",
+    "static/media/workTime.svg": "/static/media/workTime.45553d507cd2016734d857773c004d02.svg",
+    "static/media/roboto-v30-latin-300.svg": "/static/media/roboto-v30-latin-300.038d641c79fe307b2b649efee25cc92f.svg",
+    "static/media/404.svg": "/static/media/404.b09d73f21fb75de74e0c1f899d27aadc.svg",
+    "static/media/roboto-v30-latin-700.svg": "/static/media/roboto-v30-latin-700.32f463535c0a507946f737940bfc8595.svg",
+    "static/media/roboto-v30-latin-regular.svg": "/static/media/roboto-v30-latin-regular.1b1af1e4b3a278058097e96a21f80371.svg",
+    "static/media/ding.mp3": "/static/media/ding.251dfbf7c76c515a1a91.mp3",
+    "static/media/roboto-v30-latin-300.ttf": "/static/media/roboto-v30-latin-300.beded7bd0c00bf9099af.ttf",
+    "static/media/roboto-v30-latin-regular.ttf": "/static/media/roboto-v30-latin-regular.6b1ef4e4ab8eafee13c1.ttf",
+    "static/media/roboto-v30-latin-700.ttf": "/static/media/roboto-v30-latin-700.5e5b76f0fae3cf2ef7cc.ttf",
+    "static/media/roboto-v30-latin-300.woff": "/static/media/roboto-v30-latin-300.c2f7ab22cb9cbd074c3a.woff",
+    "static/media/roboto-v30-latin-700.woff": "/static/media/roboto-v30-latin-700.77ecb942e56f9b036426.woff",
+    "static/media/roboto-v30-latin-regular.woff": "/static/media/roboto-v30-latin-regular.f1e2a76794cb86b2aa8e.woff",
+    "static/media/roboto-v30-latin-300.eot": "/static/media/roboto-v30-latin-300.76fc10943a0d75471e44.eot",
+    "static/media/roboto-v30-latin-regular.eot": "/static/media/roboto-v30-latin-regular.e2f36b803fec4bdcd1bc.eot",
+    "static/media/roboto-v30-latin-700.eot": "/static/media/roboto-v30-latin-700.7d4f7f5fd90497043541.eot",
+    "static/media/boxLogo.png": "/static/media/boxLogo.fea54e18e3aa37859814.png",
+    "static/media/roboto-v30-latin-700.woff2": "/static/media/roboto-v30-latin-700.227c93190fe7f82de3f8.woff2",
+    "static/media/roboto-v30-latin-regular.woff2": "/static/media/roboto-v30-latin-regular.b009a76ad6afe4ebd301.woff2",
+    "static/media/roboto-v30-latin-300.woff2": "/static/media/roboto-v30-latin-300.c48fb6765a9fcb00b330.woff2",
+    "static/media/logo.svg": "/static/media/logo.797d41c84d2b50c923aa6f4dddd87340.svg",
+    "static/media/padlock.svg": "/static/media/padlock.4f2477cec25d06b9789a5facd41b48c3.svg",
+    "index.html": "/index.html",
+    "static/media/borderMenu.svg": "/static/media/borderMenu.c20de8f74d0f8492ddbad09b9653795c.svg"
+  },
+  "entrypoints": [
+    "static/css/main.5da68ca8.css",
+    "static/js/main.458d58b1.js"
+  ]
+}

@@ -54,13 +54,15 @@ module.exports.login = ({ username = "", password = "" }) => {
 module.exports.loginWarehouse = ({ username = "", password = "" }) => {
 	const connectionStart = new RecibemeDB();
 	const connect = connectionStart.getConnection();
-	const query = `call authWharehouse'${username}','${password}','${generateToken(
+	const query = `call authWarehouse('${username}','${password}','${generateToken(
 		{
 			username,
 			password,
 			timeStamp: +new Date(),
 		}
 	)}');`;
+
+	console.log(query);
 
 	return new Promise((resolve, reject) => {
 		connect.query(query, (error, result, fields) => {

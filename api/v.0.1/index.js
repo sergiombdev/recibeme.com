@@ -1,7 +1,11 @@
 const { Router } = require("express");
-const { tokenAccess } = require("./middelware/token.middelware");
 
 const path = require("path");
+const { tokenAccess, tokenAccessWarehouse } = require(path.resolve(
+	__dirname,
+	"middelware",
+	"token.middelware"
+));
 
 const api = Router();
 
@@ -15,6 +19,12 @@ api.use(
 	"/store",
 	tokenAccess,
 	require(path.resolve(__dirname, "routes", "store.route"))
+);
+
+api.use(
+	"/warehouse",
+	tokenAccessWarehouse,
+	require(path.resolve(__dirname, "routes", "warehouse.route"))
 );
 
 module.exports = api;

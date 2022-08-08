@@ -7,4 +7,9 @@ router.post(
 	require(path.resolve(__dirname, "..", "models", "auth.model")).authStore
 );
 
+router.post(
+	"/admin",
+	require(path.resolve(__dirname, "..", "models", "auth.model")).authWarehouse
+);
+
 module.exports = router;

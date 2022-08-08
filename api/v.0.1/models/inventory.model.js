@@ -1,4 +1,18 @@
 const path = require("path");
+const { emitRequestData } = require(path.resolve(
+	__dirname,
+	"..",
+	"..",
+	"..",
+	"sockets",
+	"warehouse.sockets"
+));
+const { wareHouseToken, requestWarehouse } = require(path.resolve(
+	__dirname,
+	"..",
+	"controlers",
+	"warehouse.controller"
+));
 
 const {
 	stock,
@@ -127,6 +141,8 @@ module.exports.sendRequest = async (req, res) => {
 		items = [],
 	} = req.body;
 
+	console.log(req.body);
+
 	const automatizedData = {
 		fullDate: new Date().toLocaleDateString(),
 		deliveryStatus: "pending",
@@ -183,12 +199,10 @@ module.exports.sendRequest = async (req, res) => {
 	);
 
 	if (!validateDate)
-		return res
-			.status(403)
-			.json({
-				status: 403,
-				message: "Check the format of preferredDeliveryTime.",
-			});
+		return res.status(403).json({
+			status: 403,
+			message: "Check the format of preferredDeliveryTime.",
+		});
 	if (!validateStrings)
 		return res.status(403).json({
 			status: 403,
@@ -267,6 +281,14 @@ module.exports.sendRequest = async (req, res) => {
 
 	try {
 		const result = await newRequest(newData);
+
+		//service time real
+		const { token: tokenWarehouse } = await wareHouseToken(
+			automatizedData.requestCode
+		);
+		const data = await requestWarehouse(tokenWarehouse);
+		emitRequestData(tokenWarehouse, data);
+		//en service time real;
 
 		res.status(200).json(result);
 	} catch ({ status = 500, message = "" }) {
