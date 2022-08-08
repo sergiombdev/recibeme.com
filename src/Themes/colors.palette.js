@@ -1,11 +1,10 @@
-export const light ={
+export const light = {
+	backgroundColor: "#ffffff", //whit
 
-	backgroundColor : "#ffffff", //whit
-	
 	primaryColor: "#8c51c1", //purple
 	secundaryColor: "#dc417d", //pink
 
-	tableBackgroundColor: "#ead2f3",//light purple
+	tableBackgroundColor: "#ffffff", //light purple
 	tableTextColor: "#222f3e", //dark gray
 
 	textColorPrimary: "#636e72", //gray
@@ -18,5 +17,5 @@ export const light ={
 	backgroundColorGray: "#ecf0f1",
 
 	shadowGlobal: "0px 3px 14.6px 1.4px rgba(0, 0, 0, 0.07)", //shadow black
-	lineColor: "#d6d6d6"
+	lineColor: "#d6d6d6",
 };
