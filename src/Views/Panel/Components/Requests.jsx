@@ -3,6 +3,8 @@ import {
 	ContainerTable,
 	StyledTable,
 	ContainerScrollTable,
+	ContainerCard,
+	Search
 } from "./Styles/Request.style";
 import { Rows } from "./Rows";
 // import { dataTable } from "./db";
@@ -11,11 +13,12 @@ import socketIOClient from "socket.io-client";
 import NotificationSound from "./../../../sources/audio/ding.mp3";
 import { data } from "./../../../config/host.config";
 import { useEffect, useState, useRef } from "react";
+import {CardComponent} from "./Card";
 
 const Request = () => {
 	const audioPlayer = useRef(null);
 	const [dataRequest, setDataRequest] = useState([]);
-
+	const [showOverflow, setShowOverflow] = useState(true);
 	const playAudio = () => {
 		audioPlayer.current.play();
 	};
@@ -27,17 +30,26 @@ const Request = () => {
 		});
 		socket.on(`requests:${localStorage.recibemeWarehouseToken}`, (data) => {
 			if (data) {
-				setDataRequest(data);
+				setDataRequest(data.reverse());
 				playAudio();
 			}
 		});
 	}, []);
 
-	console.log(dataRequest);
+	// console.log(dataRequest);
 
 	return (
 		<ContainerPage>
-			<ContainerTable>
+			<Search placeholder="Buscar"/>
+			<ContainerCard show={showOverflow}>
+
+				{
+					(dataRequest||[]).map(val=> <CardComponent key={val.request_code} data={val} setShowOverflow={setShowOverflow}/>				)
+				}
+				
+			</ContainerCard>
+
+			{/*<ContainerTable>
 				<ContainerScrollTable>
 					<StyledTable>
 						<thead>
@@ -47,10 +59,12 @@ const Request = () => {
 								<th>Primer nombre</th>
 								<th>Segundo nombre</th>
 								<th>Apellido</th>
+								<th>Celular</th>
 								<th>Dirección</th>
 								<th>Fecha y hora de preferencia de envío</th>
 								<th>Fecha y hora de Envío</th>
 								<th>Estado de pago</th>
+								<th>Driver</th>
 								<th>Tipo de envío</th>
 								<th>Estado del envío</th>
 								<th>Items</th>
@@ -63,7 +77,11 @@ const Request = () => {
 						</tbody>
 					</StyledTable>
 				</ContainerScrollTable>
-			</ContainerTable>
+			</ContainerTable>*/}
+
+
+
+
 			<audio ref={audioPlayer} src={NotificationSound} />
 		</ContainerPage>
 	);

@@ -14,6 +14,7 @@ import {
 	faListCheck,
 	faDoorClosed,
 	faSpinner,
+	faXmark
 } from "@fortawesome/free-solid-svg-icons";
 // import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 // import { faListCheck } from "@fortawesome/free-regular-svg-icons";
@@ -32,6 +33,7 @@ export const icons = () => {
 		faBell,
 		faKey,
 		faDoorClosed,
-		faSpinner
+		faSpinner,
+		faXmark
 	);
 };
