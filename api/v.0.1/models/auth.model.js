@@ -17,7 +17,6 @@ module.exports.authStore = async (req, res) => {
 };
 
 module.exports.authWarehouse = async (req, res) => {
-	console.log(req.body);
 	try {
 		const data = await loginWarehouse(req.body);
 		res.status(200).json(data);

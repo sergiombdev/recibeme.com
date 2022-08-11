@@ -45,8 +45,10 @@ const startWarehouseSockets = () => {
 };
 
 const emitRequestData = (from, data) => {
-	console.log(`requests:${from}`, data);
 	io.emit(`requests:${from}`, data);
+	return;
 };
+
+global.emitRequestData = emitRequestData;
 
 module.exports = { ioInit, io, startWarehouseSockets, emitRequestData };

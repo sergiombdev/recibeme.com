@@ -15,4 +15,10 @@ router.post(
 		.updateDeliveryStatusModel
 );
 
+router.post(
+	"/request/update/deliveryTime",
+	require(path.resolve(__dirname, "..", "models", "warehouse.model"))
+		.updateDeliveryTimeModel
+);
+
 module.exports = router;

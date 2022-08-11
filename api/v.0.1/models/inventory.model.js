@@ -1,12 +1,5 @@
 const path = require("path");
-const { emitRequestData } = require(path.resolve(
-	__dirname,
-	"..",
-	"..",
-	"..",
-	"sockets",
-	"warehouse.sockets"
-));
+
 const { wareHouseToken, requestWarehouse } = require(path.resolve(
 	__dirname,
 	"..",
@@ -140,8 +133,6 @@ module.exports.sendRequest = async (req, res) => {
 		clientCellphone = false,
 		items = [],
 	} = req.body;
-
-	console.log(req.body);
 
 	const automatizedData = {
 		fullDate: new Date().toLocaleDateString(),

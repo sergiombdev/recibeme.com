@@ -219,6 +219,8 @@ module.exports.newRequest = ({
 		newData
 	)}',@errorCodes, @errorItems, @errorMessages);`;
 
+	console.log(query);
+
 	return new Promise((resolve, reject) => {
 		connect.query(query, (error, result, fields) => {
 			if (error) {
@@ -234,7 +236,6 @@ module.exports.newRequest = ({
 				(error, result, fields) => {
 					connectionStart.connectionClose();
 
-					console.log(result);
 					if (error) {
 						reject({
 							status: 500,

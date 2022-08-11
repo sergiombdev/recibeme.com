@@ -1,5 +1,9 @@
 const path = require("path");
-const { requestWarehouse, updateDeliveryStatus } = require(path.resolve(
+const {
+	requestWarehouse,
+	updateDeliveryTime,
+	updateDeliveryStatus,
+} = require(path.resolve(
 	__dirname,
 	"..",
 	"controlers",
@@ -7,7 +11,6 @@ const { requestWarehouse, updateDeliveryStatus } = require(path.resolve(
 ));
 
 const { botWhatsApp } = require("./../../../events/bot_w.evets");
-
 module.exports.infoWarehouse = async (req, res) => {
 	res.status(200).json(req.infoWarehouse);
 };
@@ -15,8 +18,26 @@ module.exports.infoWarehouse = async (req, res) => {
 module.exports.updateDeliveryStatusModel = async (req, res) => {
 	try {
 		let { cellphone, param, ...data } = req.body;
+		console.log(data);
 		await updateDeliveryStatus(data);
 		botWhatsApp(cellphone, parseInt(data.id_delivery_status), param);
+
+		const dataRequest = await requestWarehouse(req.infoWarehouse.token);
+		emitRequestData(req.infoWarehouse.token, dataRequest);
+
+		res.status(200).json({ status: 200 });
+	} catch ({ status = 403, message = "" }) {
+		res.status(403).json({ status, message });
+	}
+};
+
+module.exports.updateDeliveryTimeModel = async (req, res) => {
+	try {
+		let data = req.body;
+		await updateDeliveryTime(data);
+
+		const dataRequest = await requestWarehouse(req.infoWarehouse.token);
+		emitRequestData(req.infoWarehouse.token, dataRequest);
 
 		res.status(200).json({ status: 200 });
 	} catch ({ status = 403, message = "" }) {

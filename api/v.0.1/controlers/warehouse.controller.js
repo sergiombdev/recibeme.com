@@ -83,6 +83,30 @@ module.exports.updateDeliveryStatus = ({ requestCode, id_delivery_status }) => {
 	const connectionStart = new RecibemeDB();
 	const connect = connectionStart.getConnection();
 	const query = `UPDATE Request SET id_delivery_status = ${id_delivery_status} WHERE request_code = '${requestCode}';`;
+	console.log(query);
+	return new Promise((resolve, reject) => {
+		connect.query(query, (error, result, fields) => {
+			connectionStart.connectionClose();
+
+			let data = result ? result : [];
+
+			if (error)
+				reject({
+					status: 500,
+					message: "Internal server error.",
+				});
+
+			resolve(data[0] ? data[0] : []);
+		});
+	});
+};
+
+module.exports.updateDeliveryTime = ({ requestCode, deliveryTime }) => {
+	const connectionStart = new RecibemeDB();
+	const connect = connectionStart.getConnection();
+	const query = `UPDATE Request SET delivery_time = '${deliveryTime}' WHERE request_code = '${requestCode}';`;
+
+	console.log(query);
 
 	return new Promise((resolve, reject) => {
 		connect.query(query, (error, result, fields) => {
