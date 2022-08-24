@@ -49,3 +49,17 @@ export const updateRequest = (data) =>
 				reject(e.response);
 			});
 	});
+
+export const updateRequestDeliveryTime = (data) =>
+	new Promise((resolve, reject) => {
+		instance({
+			api_key: localStorage.recibemeWarehouseToken || "",
+		})
+			.post("/warehouse/request/update/deliveryTime", data)
+			.then((response) => {
+				resolve(response);
+			})
+			.catch((e) => {
+				reject(e.response);
+			});
+	});

@@ -17,10 +17,10 @@ icons();
 // render dom
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <GlobalStyle />
-    <Routers />
-  </React.StrictMode>,
+	<React.StrictMode>
+		<GlobalStyle />
+		<Routers />
+	</React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -1,6 +1,6 @@
 {
-	"short_name": "React App",
-	"name": "Create React App Sample",
+	"short_name": "Inventory system",
+	"name": "Inventory system",
 	"icons": [
 		{
 			"src": "favicon.ico",

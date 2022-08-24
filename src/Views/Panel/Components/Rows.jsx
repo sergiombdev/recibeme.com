@@ -1,4 +1,4 @@
-import { Select, ButtonState } from "./Styles/Request.style";
+/*import { Select, ButtonState } from "./Styles/Request.style";
 import { useState } from "react";
 import { Modal, ModalContent, CloseModal } from "./Styles/Modal";
 import Swal from "sweetalert2";
@@ -49,10 +49,12 @@ export const Rows = ({ val, index }) => {
 				<td>{val.first_name}</td>
 				<td>{val.middle_name}</td>
 				<td>{val.last_name}</td>
+				<td>{val.cellphone}</td>
 				<td>{val.address}</td>
 				<td>{val.prefered_delivery_time}</td>
 				<td>{val.delivery_time}</td>
 				<td>{val.paymentStatus}</td>
+				<td>Name</td>
 				<td>{val.shippmentType}</td>
 				<td>
 					<Select
@@ -107,3 +109,4 @@ export const Rows = ({ val, index }) => {
 		</>
 	);
 };
+*/
