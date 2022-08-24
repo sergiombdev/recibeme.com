@@ -1,4 +1,6 @@
 const path = require("path");
+const request = require("request");
+
 const {
 	requestWarehouse,
 	updateDeliveryTime,
@@ -17,13 +19,49 @@ module.exports.infoWarehouse = async (req, res) => {
 
 module.exports.updateDeliveryStatusModel = async (req, res) => {
 	try {
-		let { cellphone, param, ...data } = req.body;
-		console.log(data);
+		let { cellphone, param, confirmationHeaders, confirmationUrl, ...data } =
+			req.body;
+		console.log(req.body);
+
 		await updateDeliveryStatus(data);
+
 		botWhatsApp(cellphone, parseInt(data.id_delivery_status), param);
 
 		const dataRequest = await requestWarehouse(req.infoWarehouse.token);
 		emitRequestData(req.infoWarehouse.token, dataRequest);
+
+		try {
+			let delivery_status = "";
+
+			if (data.id_delivery_status === 1001) {
+				delivery_status = "status_preparado";
+			} else if (data.id_delivery_status === 1002) {
+				delivery_status = "status_entregado";
+			} else {
+				delivery_status = "status_terminal_entregado";
+			}
+
+			request(
+				{
+					url: confirmationUrl,
+					headers: {
+						"content-type": "application/json",
+						...JSON.parse("{" + (confirmationHeaders || "") + "}"),
+					},
+					method: "POST",
+					body: JSON.stringify({
+						code: data.requestCode,
+						deliveryStatus: delivery_status,
+					}),
+				},
+				(error, body) => {
+					if (error) console.log(error);
+					console.log(body);
+				}
+			);
+		} catch (e) {
+			console.log(e);
+		}
 
 		res.status(200).json({ status: 200 });
 	} catch ({ status = 403, message = "" }) {
